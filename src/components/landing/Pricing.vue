@@ -15,14 +15,14 @@
                     <v-card>
                         <v-card-title>Free</v-card-title>
 
-                        <v-card-content>
+                        <v-card-text>
                             <ul>
                                 <v-list-item>2 Projects</v-list-item>
                                 <v-list-item>7 days data persistent</v-list-item>
                                 <v-list-item>free up-to 100 records</v-list-item>
                                 <v-list-item>500 request per day</v-list-item>
                             </ul>
-                        </v-card-content>
+                        </v-card-text>
                         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
                             <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">
                                 $0 <span class="text-base"> for lifetime</span>
@@ -42,14 +42,14 @@
                         <v-card-title>
                             Basic
                         </v-card-title>
-                        <v-card-content>
+                        <v-card-text>
                             <ul class="w-full text-center text-base font-bold">
                                 <v-list-item>10 Projects</v-list-item>
                                 <v-list-item>lifetime *</v-list-item>
                                 <v-list-item>10,000 records</v-list-item>
                                 <v-list-item>10,000 request per day</v-list-item>
                             </ul>
-                        </v-card-content>
+                        </v-card-text>
                         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
                             <div class="w-full pt-6 text-4xl font-bold text-center">
                                 $9.99 <span class="text-base">/ per months</span>
@@ -69,7 +69,7 @@
                         <v-card-title>
                             PRO
                         </v-card-title>
-                        <v-card-content>
+                        <v-card-text>
                             <ul>
 
                                 <v-list-item>50 Projects</v-list-item>
@@ -78,7 +78,7 @@
                                 <v-list-item>100,000 request per day</v-list-item>
 
                             </ul>
-                        </v-card-content>
+                        </v-card-text>
                         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
                             <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">
                                 $24.99 <span class="text-base">/ per months</span>

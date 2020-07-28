@@ -8,11 +8,21 @@ let endpoint = process.env.VUE_APP_ENDPOINT;
 
 export default new Vuex.Store({
   state: {
-    status: '',
     token: localStorage.getItem('token') || '',
-    user: {}
+    user: {},
+    projects: { fetched: false, data: [] }
   },
   mutations: {
+    auth_success(state, token, user) {
+      state.token = token
+      state.user = user
+    },
+    project_list(state, projects) {
+      state.projects = { fetched: true, data: projects };
+    },
+    project_add(state, project) {
+      state.projects = { fetched: false, data: [project] };
+    },
   },
   actions: {
     login({ commit }, user) {
@@ -40,20 +50,50 @@ export default new Vuex.Store({
     },
     getProjects({ commit }) {
       let token = this.state.token;
-      if(this == null){
-        commit('auth_error')
-      }
       return new Promise((resolve, reject) => {
-        axios({
-          url: `${endpoint}/project/list`,
-          method: 'GET',
-          headers:{
-            'token' : token
+        console.log(this.state.projects);
+        if (this.state.projects.fetched) {
+          resolve(this.state.projects.data);
+        } else {
+          axios({
+            url: `${endpoint}/project/list`,
+            method: 'GET',
+            headers: {
+              'token': token
+            }
+          }).then(e => {
+            let projects = e.data.data;
+            resolve(projects);
+            commit('project_add', projects)
+          }).catch(e => reject(e))
+        }
+      });
+    },
+    getProjectDetail({ commit }, _id) {
+      let token = this.state.token;
+
+      let projects = this.state.projects.data;
+      let project = projects.find(project => project._id == _id);
+      return new Promise((resolve, reject) => {
+        if (project != null) {
+          resolve(project)
+          if (this == null) {
+            commit();
+            reject();
           }
-        }).then(e=>{
-          console.log(e)
-          resolve(e.data.data);
-        }).catch(e=>reject(e))
+        } else {
+          axios({
+            url: `${endpoint}/project/${_id}`,
+            method: 'GET',
+            headers: {
+              'token': token
+            }
+          }).then(e => {
+            let project = e.data.data;
+            commit('project_list', project)
+            resolve(project);
+          }).catch(e => reject(e))
+        }
       });
     }
   },

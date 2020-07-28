@@ -2,10 +2,15 @@
     <v-container class="fill-height primary" fluid>
         <v-row justify="center">
             <v-col cols="12" sm="8" md="4">
+
+                <v-alert type="error" v-if="error">
+                    Invalid Login Credential
+                </v-alert>
                 <v-card class="elevation-12">
                     <v-toolbar color="primary" dark flat>
                         <v-toolbar-title>Login form</v-toolbar-title>
                     </v-toolbar>
+                    <v-progress-linear v-if="loading" :size="30" color="secondary" indeterminate></v-progress-linear>
                     <v-card-text>
                         <v-form>
                             <v-text-field label="Login" v-model.trim="email" name="login" prepend-icon="mdi-account"
@@ -17,7 +22,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="handleLogin">Login</v-btn>
+                        <v-btn color="primary" :disabled="loading" @click="handleLogin">Login</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -30,17 +35,27 @@
         name: "Login",
         data() {
             return {
-                email: "",
-                password: ""
+                email: "nitishk73@gmail.cmo",
+                password: "admin",
+                loading: false,
+                error: false,
             }
         },
         methods: {
             handleLogin: function () {
+                this.loading = true;
                 let email = this.email
                 let password = this.password
                 this.$store.dispatch('login', { email, password })
-                    .then(() => this.$router.push('/dashboard'))
-                    .catch(err => console.log(err))
+                    .then(() => {
+                        this.loading = false;
+                        this.$router.push('/dashboard');
+                    })
+                    .catch((err) => {
+                        this.loading = false;
+                        if (err)
+                            this.error = true
+                    })
             },
             handleGithubLogin: function () {
 
