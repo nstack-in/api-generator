@@ -40,7 +40,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-main class="px-4 py-0 ">
-            <v-container class="fill-height"  fluid>
+            <v-container class="fill-height" >
                 <v-row class="fill-height">
                     <v-col>
                         <transition name="fade">

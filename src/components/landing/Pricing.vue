@@ -30,7 +30,7 @@
 
                         </div>
                         <v-card-actions>
-                            <v-btn flat color="primary" width="100%">
+                            <v-btn text color="primary" width="100%">
                                 Sign Up
                             </v-btn>
                         </v-card-actions>
@@ -57,7 +57,7 @@
 
                         </div>
                         <v-card-actions>
-                            <v-btn flat color="primary" width="100%">
+                            <v-btn text color="primary" width="100%">
                                 Sign Up
                             </v-btn>
                         </v-card-actions>
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <v-card-actions>
-                            <v-btn flat color="primary" width="100%">
+                            <v-btn text color="primary" width="100%">
                                 Sign Up
                             </v-btn>
                         </v-card-actions>

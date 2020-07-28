@@ -97,6 +97,28 @@ export default new Vuex.Store({
           }).catch(e => reject(e))
         }
       });
+    },
+    createProject({ commit }, project){
+      let token = this.state.token;
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${endpoint}/project/new`,
+          data: project,
+          method: 'POST',
+          headers: {
+              'token': token
+            }
+        })
+          .then(resp => {
+            console.log(resp);
+            
+          })
+          .catch(err => {
+            console.log(err)
+            commit('auth_error')
+            reject(err)
+          })
+      });
     }
   },
   modules: {

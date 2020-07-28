@@ -7,7 +7,13 @@
                     <v-spacer></v-spacer>
                     <v-btn @click="dialog = true" outlined>
                         <v-icon>mdi-pencil</v-icon>
-                        Edit Project
+                        <span class="d-none d-sm-flex">Edit</span> 
+                    </v-btn>
+                    <v-btn class="ml-4" :to="project._id + '/settings'" outlined>
+                        <v-icon>mdi-settings</v-icon>
+                         
+                        <span class="d-none d-sm-flex">Settings</span> 
+
                     </v-btn>
                 </v-card-title>
                 <v-card-text>
@@ -26,9 +32,12 @@
                 <v-card-title>
                     Endpoints
                     <v-spacer></v-spacer>
-                    <v-btn @click="handleProjectEdit" outlined>
+                    <v-btn :to="project._id + '/new'" outlined>
                         <v-icon>mdi-plus</v-icon>
+                        <span class="d-none d-sm-flex">
                         Add Endpoint
+                        </span> 
+
                     </v-btn>
                 </v-card-title>
                 <v-card-text>

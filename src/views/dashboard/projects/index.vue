@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-row>
-            <v-col lg="4" md="6" sm="12" cols="sm" class="pb-2">
+            <v-col v-if="projects.lenght > 2" lg="4" md="6" sm="12" cols="sm" class="pb-2">
                 <v-card style="min-height:150px">
                     <v-card-title>
                         Add New Project
@@ -23,8 +23,30 @@
 
             </v-col>
 
+            <v-col v-else lg="6" sm="12" cols="sm" class="pb-2">
+                <v-card style="min-height:150px">
+                    <v-card-title>
+                        Add New Project
+                    </v-card-title>
+                    <v-row class="no-gutters">
+                        <div class="col-auto">
+                            <div class="cyan fill-height">&nbsp;</div>
+                        </div>
+                        <div class="col pa-3 py-4 black--text">
+                            <h3 class="text-truncate text-uppercase">
+                                Your awesome projects 🚀
+                            </h3>
+                        </div>
+                    </v-row>
+                    <v-card-actions>
+                        <v-btn color="primary" outlined to="projects/new">Create NOW</v-btn>
+                    </v-card-actions>
+                </v-card>
 
-            <v-col lg="4" md="6" sm="12" cols="sm" class="pb-2" v-for="(item, index) in projects" :key="index">
+            </v-col>
+
+
+            <v-col lg="6" sm="12" cols="sm" class="pb-2" v-for="(item, index) in projects" :key="index">
 
                 <v-card style="min-height:150px">
                     <v-card-title>
@@ -36,9 +58,12 @@
                                     <v-icon>mdi-dots-vertical</v-icon>
                                 </v-btn>
                             </template>
-                            <v-list>
-                                <v-list-item v-for="(option, index) in options" :key="index">
-                                    <v-list-item-title>{{ option.name }}</v-list-item-title>
+                            <v-list >
+                                <v-list-item >
+                                        <v-btn text block>Delete</v-btn>
+                                </v-list-item>
+                                <v-list-item >
+                                        <v-btn text block :to="'projects/' + item._id + '/settings'">Settings</v-btn>
                                 </v-list-item>
                             </v-list>
                         </v-menu>
@@ -52,7 +77,7 @@
                         </div>
                     </v-row>
                     <v-card-actions>
-                        <v-btn outlined :to="'projects/'+item._id">Open</v-btn>
+                        <v-btn color="primary" :to="'projects/'+item._id">Explore</v-btn>
                     </v-card-actions>
                 </v-card>
 
@@ -70,18 +95,6 @@
             return {
                 projects: [],
                 dialog: true,
-                options: [
-                    {
-                        name: 'Delete'
-                    },
-                    {
-                        name: 'Disable'
-                    },
-                    {
-                        name: 'Settings'
-                    },
-
-                ]
             }
         },
         created: async function () {

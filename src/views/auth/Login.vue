@@ -7,7 +7,7 @@
                     Invalid Login Credential
                 </v-alert>
                 <v-card class="elevation-12">
-                    <v-toolbar color="primary" dark flat>
+                    <v-toolbar color="primary" dark text>
                         <v-toolbar-title>Login form</v-toolbar-title>
                     </v-toolbar>
                     <v-progress-linear v-if="loading" :size="30" color="secondary" indeterminate></v-progress-linear>

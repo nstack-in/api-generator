@@ -2,11 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/auth/Login.vue'
-import Dashboard from '../views/dashboard/index.vue'
-import UserProfile from '../views/dashboard/profile.vue'
 import DashboardHome from '../views/dashboard/home.vue'
+
+import UserProfile from '../views/dashboard/profile.vue'
 import UserProjects from '../views/dashboard/projects/index.vue'
 import UserProjectsOne from '../views/dashboard/projects/single.vue'
+import UserProjectsNew from '../views/dashboard/projects/new.vue'
+import UserProjectsSettings from '../views/dashboard/projects/settings.vue'
+
+import CreateEndpoint from '../views/dashboard/projects/endpoints/create.vue'
+
 import UserDatabase from '../views/dashboard/database.vue'
 import UserSettings from '../views/dashboard/settings.vue'
 
@@ -26,7 +31,7 @@ const routes = [
   {
     path: '/home',
     name: 'dashboard.index',
-    component: Dashboard,
+    component: () => import('../views/dashboard/index.vue'),
     redirect: { name: 'dashboard.home' },
     children: [
       {
@@ -45,9 +50,24 @@ const routes = [
         component: UserProjects
       } ,
       {
+        name:"dashboard.projects.new",
+        path: '/projects/new',
+        component: UserProjectsNew
+      } ,
+      {
         name:"dashboard.projects.one",
         path: '/projects/:id',
         component: UserProjectsOne
+      } ,
+      {
+        name:"dashboard.projects.new",
+        path: '/projects/:id/new',
+        component: CreateEndpoint
+      } ,
+      {
+        name:"dashboard.projects.settings",
+        path: '/projects/:id/settings',
+        component: UserProjectsSettings
       } ,
       {
         name:"dashboard.database",
