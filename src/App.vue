@@ -1,25 +1,24 @@
 <template>
-  <div id="app" class=" leading-normal tracking-normal text-white gradient"
-    style="font-family: 'Source Sans Pro', sans-serif;">
-    <NavBar />
-    <router-view />
-  </div>
+  <v-app>
+    <!-- <NavBar /> -->
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-  import NavBar from "@/components/navigation/NavBar.vue";
+  // import NavBar from '@/components/navigation/NavBar';
 
   export default {
-    name: "App",
+    name: 'App',
     components: {
-      NavBar,
+      // NavBar
+    },
+    data: () => ({
+    }),
+    methods: {
+      
     },
   };
 </script>
-<style lang="scss">
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-</style>
