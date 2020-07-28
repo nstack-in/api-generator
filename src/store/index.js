@@ -21,6 +21,8 @@ export default new Vuex.Store({
       state.projects = { fetched: true, data: projects };
     },
     project_add(state, project) {
+      console.log(project);
+      console.log("project");
       state.projects = { fetched: false, data: [project] };
     },
   },
@@ -51,7 +53,6 @@ export default new Vuex.Store({
     getProjects({ commit }) {
       let token = this.state.token;
       return new Promise((resolve, reject) => {
-        console.log(this.state.projects);
         if (this.state.projects.fetched) {
           resolve(this.state.projects.data);
         } else {
@@ -63,21 +64,22 @@ export default new Vuex.Store({
             }
           }).then(e => {
             let projects = e.data.data;
+            commit('project_list', projects)
             resolve(projects);
-            commit('project_add', projects)
           }).catch(e => reject(e))
         }
       });
     },
     getProjectDetail({ commit }, _id) {
       let token = this.state.token;
-
       let projects = this.state.projects.data;
+
       let project = projects.find(project => project._id == _id);
+
       return new Promise((resolve, reject) => {
         if (project != null) {
           resolve(project)
-          if (this == null) {
+          if (this == "null") {
             commit();
             reject();
           }
@@ -90,7 +92,7 @@ export default new Vuex.Store({
             }
           }).then(e => {
             let project = e.data.data;
-            commit('project_list', project)
+            commit('project_add', project)
             resolve(project);
           }).catch(e => reject(e))
         }

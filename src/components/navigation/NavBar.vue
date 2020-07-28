@@ -2,7 +2,7 @@
     <v-app-bar app color="primary" dark>
         <v-container>
             <v-app-bar elevation="0" color="primary">
-                <v-btn active-class="D" to="/" text>
+                <v-btn to="/" text>
                     <!-- <v-img alt="Vuetify Logo" class="shrink mr-2" contain
                         src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition"
                         width="40" /> -->
