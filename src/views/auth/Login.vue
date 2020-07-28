@@ -1,5 +1,5 @@
 <template>
-    <v-container class="fill-height" fluid>
+    <v-container class="fill-height primary" fluid>
         <v-row justify="center">
             <v-col cols="12" sm="8" md="4">
                 <v-card class="elevation-12">
