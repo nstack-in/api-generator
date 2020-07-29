@@ -53,14 +53,14 @@ const routes = [
         component: () => import('../views/dashboard/projects/endpoints/create.vue'),
       },
       {
-        name: "dashboard.projects.view",
-        path: '/projects/:id/:eid',
-        component: () => import('../views/dashboard/projects/endpoints/index.vue'),
-      },
-      {
         name: "dashboard.projects.settings",
         path: '/projects/:id/settings',
         component: () => import('../views/dashboard/projects/settings.vue'),
+      },
+      {
+        name: "dashboard.projects.view",
+        path: '/projects/:id/:eid',
+        component: () => import('../views/dashboard/projects/endpoints/index.vue'),
       },
       {
         name: "dashboard.database",

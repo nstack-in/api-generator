@@ -226,7 +226,26 @@ export default new Vuex.Store({
         })
 
       });
+    },
+    deleteEndpoint({ commit }, { _id, _eid }) {
+      let token = this.state.token;
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${endpoint}/project/${_id}/${_eid}`,
+          method: 'DELETE',
+          headers: {
+            'token': token
+          }
+        }).then(res => {
+          resolve(res.data);
+        }).catch(err => {
+          reject(err.response.data);
+          commit()
+        })
+
+      });
     }
+
   },
   modules: {
   },

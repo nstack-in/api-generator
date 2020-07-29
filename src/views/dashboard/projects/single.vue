@@ -2,21 +2,25 @@
     <div>
         <v-row>
             <v-card width="100%">
-                <v-card-title>
-                    Name : {{project.name}}
+                <v-card-title class="primary white--text">
+                    Project Details
                     <v-spacer></v-spacer>
-                    <v-btn @click="dialog = true" outlined>
+                    <v-btn @click="dialog = true" outlined class="white--text">
                         <v-icon>mdi-pencil</v-icon>
                         <span class="d-none d-sm-flex">Edit</span>
                     </v-btn>
-                    <v-btn class="ml-4" :to="project._id + '/settings'" outlined>
+                    <v-btn class="ml-4 white--text" :to="project._id + '/settings'" outlined>
                         <v-icon>mdi-settings</v-icon>
 
                         <span class="d-none d-sm-flex">Settings</span>
 
                     </v-btn>
                 </v-card-title>
-                <v-card-text>
+                <v-progress-linear v-if="loadingEndpoint" color="secondary" :indeterminate="true"></v-progress-linear>
+                <v-card-text class="my-4">
+                    <p class="body-1">
+                        Name : {{project.name}}
+                    </p>
                     <p>
                         ID : {{project._id}}
                     </p>
@@ -30,7 +34,7 @@
 
             </v-card>
 
-            <v-card width="100%" class="mt-4" elevation="0">
+            <v-card width=" 100%" class="mt-4" elevation="0">
                 <v-card-title>
                     Endpoints
                     <v-spacer></v-spacer>
@@ -42,6 +46,7 @@
 
                     </v-btn>
                 </v-card-title>
+                <v-progress-linear v-if="loadingEndpoint" color="secondary" :indeterminate="true"></v-progress-linear>
                 <v-card-text>
                     <v-row justify="center">
                         <v-expansion-panels>
@@ -58,7 +63,8 @@
                                     </v-col>
                                     <v-col>
                                         <v-btn class="primary" :to="'/projects/' + project._id +'/'+endpoint._id">
-                                            Explore</v-btn>
+                                            Explore
+                                        </v-btn>
                                     </v-col>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
@@ -119,7 +125,8 @@
         name: "Projects",
         data() {
             return {
-                loadingEndpoint: false,
+                loadingEndpoint: true,
+                loadingProject: true,
                 dialog: false,
                 timeout: 2000,
                 snackbar: false,
@@ -162,10 +169,12 @@
         created: async function () {
             let _id = this.$route.params.id;
             this.$store.dispatch('getProjectDetail', _id).then(e => {
+                this.loadingProject = false;
                 this.project = e.data;
                 this.projectUpdate = JSON.parse(JSON.stringify(e.data));
             });
             this.$store.dispatch('listEndpoint', _id).then(e => {
+                this.loadingEndpoint = false;
                 this.endpoints = (e.data);
             });
 
