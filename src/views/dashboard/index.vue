@@ -58,10 +58,10 @@
                 toggleMini: false,
                 navigations: [
                     { title: "Home", href: "/home", icon: "mdi-home-outline" },
-                    { title: "Projects", href: "/projects", icon: "mdi-bus-clock" },
-                    { title: "Database", href: "/database", icon: "mdi-palette-swatch" },
+                    { title: "Projects", href: "/projects", icon: "mdi-book" },
                     { title: "Profile", href: "/profile", icon: "mdi-account" },
                     { title: "Settings", href: "/settings", icon: "mdi-settings-outline" },
+                    { title: "Logout", href: "/logout", icon: "mdi-account" },
                 ]
             }
         },
