@@ -19,11 +19,12 @@
                             <v-text-field id="password" v-model.trim="password" label="Password" name="password"
                                 prepend-icon="mdi-lock" type="password"></v-text-field>
                         </v-form>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" :disabled="loading" @click="handleLogin">Login</v-btn>
+                        </v-card-actions>
                     </v-card-text>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="primary" :disabled="loading" @click="handleLogin">Login</v-btn>
-                    </v-card-actions>
+
                 </v-card>
             </v-col>
         </v-row>

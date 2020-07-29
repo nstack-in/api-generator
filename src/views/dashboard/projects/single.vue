@@ -7,12 +7,12 @@
                     <v-spacer></v-spacer>
                     <v-btn @click="dialog = true" outlined>
                         <v-icon>mdi-pencil</v-icon>
-                        <span class="d-none d-sm-flex">Edit</span> 
+                        <span class="d-none d-sm-flex">Edit</span>
                     </v-btn>
                     <v-btn class="ml-4" :to="project._id + '/settings'" outlined>
                         <v-icon>mdi-settings</v-icon>
-                         
-                        <span class="d-none d-sm-flex">Settings</span> 
+
+                        <span class="d-none d-sm-flex">Settings</span>
 
                     </v-btn>
                 </v-card-title>
@@ -35,8 +35,8 @@
                     <v-btn :to="project._id + '/new'" outlined>
                         <v-icon>mdi-plus</v-icon>
                         <span class="d-none d-sm-flex">
-                        Add Endpoint
-                        </span> 
+                            Add Endpoint
+                        </span>
 
                     </v-btn>
                 </v-card-title>
@@ -143,8 +143,6 @@
                 projectUpdate: {
                     name: null,
                     description: null,
-                    _id: null,
-                    createOn: null
                 },
             }
         },
@@ -153,14 +151,20 @@
 
             },
             handleUpdate() {
-                console.log(this.projectUpdate);
+                let update = this.projectUpdate;
+                let _id = this.$route.params.id;
+                this.$store.dispatch('updateProjectDetail', { _id, update }).then(e => {
+                    this.project = e.data;
+                    console.log(e);
+                    this.projectUpdate = JSON.parse(JSON.stringify(e));
+                });
             }
         },
         created: async function () {
-            let id = this.$route.params.id;
-            this.$store.dispatch('getProjectDetail', id).then(e => {
-                this.project = e;
-                this.projectUpdate = JSON.parse(JSON.stringify(e));
+            let _id = this.$route.params.id;
+            this.$store.dispatch('getProjectDetail', _id).then(e => {
+                this.project = e.data;
+                this.projectUpdate = JSON.parse(JSON.stringify(e.data));
             });
         },
     }

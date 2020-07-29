@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || '',
     user: {},
-    projects: { fetched: false, data: [] }
+    projects: { fetched: false, data: {}, }
   },
   mutations: {
     auth_success(state, token, user) {
@@ -18,12 +18,18 @@ export default new Vuex.Store({
       state.user = user
     },
     project_list(state, projects) {
-      state.projects = { fetched: true, data: projects };
+      let data = {};
+      projects.forEach(project => {
+        data[project._id] = JSON.parse(JSON.stringify(project));
+      });
+      state.projects = { fetched: true, data: data };
     },
     project_add(state, project) {
-      console.log(project);
-      console.log("project");
-      state.projects = { fetched: false, data: [project] };
+      let data = state.projects;
+      let oneData = { id: project._id, data: project };
+      data = { ...data, ...oneData };
+      console.log(data);
+      state.projects = { fetched: false, data: {} };
     },
   },
   actions: {
@@ -73,12 +79,10 @@ export default new Vuex.Store({
     getProjectDetail({ commit }, _id) {
       let token = this.state.token;
       let projects = this.state.projects.data;
-
-      let project = projects.find(project => project._id == _id);
-
+      let project = projects[_id]
       return new Promise((resolve, reject) => {
-        if (project != null) {
-          resolve(project)
+        if (project['name'] != null) {
+          resolve({ data: project, message: 'From Cache' })
           if (this == "null") {
             commit();
             reject();
@@ -91,14 +95,14 @@ export default new Vuex.Store({
               'token': token
             }
           }).then(e => {
-            let project = e.data.data;
+            let project = e.data;
             commit('project_add', project)
             resolve(project);
           }).catch(e => reject(e))
         }
       });
     },
-    createProject({ commit }, project){
+    createProject({ commit }, project) {
       let token = this.state.token;
       return new Promise((resolve, reject) => {
         axios({
@@ -106,12 +110,41 @@ export default new Vuex.Store({
           data: project,
           method: 'POST',
           headers: {
-              'token': token
+            'token': token
+          }
+        })
+          .then(resp => {
+            if (resp.data.error != null) {
+              reject(resp.data)
+            } else {
+              resolve(resp.data)
             }
+          })
+          .catch(err => {
+            console.log(err)
+            commit('auth_error')
+            reject(err)
+          })
+      });
+    },
+    updateProjectDetail({ commit }, { _id, update }) {
+      let token = this.state.token;
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${endpoint}/project/${_id}`,
+          data: update,
+          method: 'PUT',
+          headers: {
+            'token': token
+          }
         })
           .then(resp => {
             console.log(resp);
-            
+            if (resp.data.error != null) {
+              reject(resp.data)
+            } else {
+              resolve(resp.data)
+            }
           })
           .catch(err => {
             console.log(err)

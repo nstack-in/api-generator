@@ -2,18 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/auth/Login.vue'
-import DashboardHome from '../views/dashboard/home.vue'
-
-import UserProfile from '../views/dashboard/profile.vue'
-import UserProjects from '../views/dashboard/projects/index.vue'
-import UserProjectsOne from '../views/dashboard/projects/single.vue'
-import UserProjectsNew from '../views/dashboard/projects/new.vue'
-import UserProjectsSettings from '../views/dashboard/projects/settings.vue'
-
-import CreateEndpoint from '../views/dashboard/projects/endpoints/create.vue'
-
-import UserDatabase from '../views/dashboard/database.vue'
-import UserSettings from '../views/dashboard/settings.vue'
 
 Vue.use(VueRouter)
 
@@ -35,50 +23,50 @@ const routes = [
     redirect: { name: 'dashboard.home' },
     children: [
       {
-        name:"dashboard.home",
+        name: "dashboard.home",
         path: '/dashboard',
-        component: DashboardHome
-      } ,
+        component: () => import('../views/dashboard/home.vue'),
+      },
       {
-        name:"dashboard.profile",
+        name: "dashboard.profile",
         path: '/profile',
-        component: UserProfile
-      } ,
+        component: () => import('../views/dashboard/profile.vue'),
+      },
       {
-        name:"dashboard.projects",
+        name: "dashboard.projects",
         path: '/projects',
-        component: UserProjects
-      } ,
+        component: () => import('../views/dashboard/projects/index.vue'),
+      },
       {
-        name:"dashboard.projects.new",
+        name: "dashboard.projects.new",
         path: '/projects/new',
-        component: UserProjectsNew
-      } ,
+        component: () => import('../views/dashboard/projects/new.vue'),
+      },
       {
-        name:"dashboard.projects.one",
+        name: "dashboard.projects.one",
         path: '/projects/:id',
-        component: UserProjectsOne
-      } ,
+        component: () => import('../views/dashboard/projects/single.vue'),
+      },
       {
-        name:"dashboard.projects.new",
+        name: "dashboard.projects.new",
         path: '/projects/:id/new',
-        component: CreateEndpoint
-      } ,
+        component: () => import('../views/dashboard/projects/endpoints/create.vue'),
+      },
       {
-        name:"dashboard.projects.settings",
+        name: "dashboard.projects.settings",
         path: '/projects/:id/settings',
-        component: UserProjectsSettings
-      } ,
+        component: () => import('../views/dashboard/projects/settings.vue'),
+      },
       {
-        name:"dashboard.database",
+        name: "dashboard.database",
         path: '/database',
-        component: UserDatabase
-      } ,
+        component: () => import('../views/dashboard/database/index.vue'),
+      },
       {
-        name:"dashboard.settings",
+        name: "dashboard.settings",
         path: '/settings',
-        component: UserSettings
-      } 
+        component: () => import('../views/dashboard/settings.vue'),
+      }
     ]
   },
   {
