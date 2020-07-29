@@ -72,7 +72,8 @@
         },
         computed: {
             mini() {
-                return (this.$vuetify.breakpoint.smAndDown) || this.toggleMini
+                let isSmall = this.$vuetify.breakpoint.smAndDown
+                return isSmall || this.toggleMini
             },
         },
     }

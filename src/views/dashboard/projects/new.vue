@@ -56,12 +56,14 @@
                     .then(e => {
                         this.projects = e;
                         this.loading = false;
-                        console.log(e);
-
+                        this.$router.push('/projects');
                     }).catch(e => {
                         this.loading = false;
-                        this.error = e.error;
-                        console.log(e);
+                        if (e.error.message == "Token Expired") {
+                            this.$router.push('/login');
+                        } else {
+                            this.error = e.error;
+                        }
                     });
             }
         },

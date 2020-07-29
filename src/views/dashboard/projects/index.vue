@@ -1,25 +1,25 @@
 <template>
     <div>
         <v-row>
-            <v-col v-if="projects.lenght > 2" lg="4" md="6" sm="12" cols="sm" class="pb-2">
+            <v-col v-if="projects.length == 3 " lg="6" sm="12" cols="sm" class="pb-2">
                 <v-card style="min-height:150px">
-                    <v-card-title>
-                        Add New Project
+                    <v-card-title class="warning white--text">
+                        Upgrade to Create More Projects
                     </v-card-title>
                     <v-card-text>
                         <v-row class="no-gutters">
                             <div class="col-auto">
                                 <div class="cyan fill-height">&nbsp;</div>
                             </div>
-                            <div class="col pa-3 py-4 red--text">
-                                <h5 class="text-truncate text-uppercase">
-                                    You can't Create more projects
-                                </h5>
+                            <div class="col pa-3 py-4">
+                                <h3>
+                                    We can't offer more for free, please upgrade to get more.
+                                </h3>
                             </div>
                         </v-row>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn warning to="'projects/new">Upgrade Account</v-btn>
+                            <v-btn class="primary" to="'projects/new">Upgrade Account</v-btn>
                         </v-card-actions>
                     </v-card-text>
 

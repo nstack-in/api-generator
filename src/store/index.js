@@ -18,6 +18,7 @@ export default new Vuex.Store({
       state.user = user
     },
     project_list(state, projects) {
+
       let data = {};
       projects.forEach(project => {
         data[project._id] = JSON.parse(JSON.stringify(project));
@@ -25,12 +26,22 @@ export default new Vuex.Store({
       state.projects = { fetched: true, data: data };
     },
     project_add(state, project) {
-      let data = state.projects;
-      let oneData = { id: project._id, data: project };
-      data = { ...data, ...oneData };
-      console.log(data);
-      state.projects = { fetched: false, data: {} };
+      let data = state.projects.data;
+      data[project._id] = project;
+      let fetched = state.projects.fetched;
+      state.projects = { fetched, data };
     },
+    update_project(state, project) {
+      let data = state.projects.data;
+      let fetched = state.projects.fetched;
+      data[project._id] = project;
+      state.projects = { fetched, data };
+    },
+    remove_project(state, _id) {
+      let data = state.projects.data;
+      delete data[_id];
+      state.projects.data = data;
+    }
   },
   actions: {
     login({ commit }, user) {
@@ -58,6 +69,7 @@ export default new Vuex.Store({
     },
     getProjects({ commit }) {
       let token = this.state.token;
+      console.log(this.state.projects)
       return new Promise((resolve, reject) => {
         if (this.state.projects.fetched) {
           resolve(this.state.projects.data);
@@ -81,7 +93,7 @@ export default new Vuex.Store({
       let projects = this.state.projects.data;
       let project = projects[_id]
       return new Promise((resolve, reject) => {
-        if (project['name'] != null) {
+        if (project != null) {
           resolve({ data: project, message: 'From Cache' })
           if (this == "null") {
             commit();
@@ -96,7 +108,7 @@ export default new Vuex.Store({
             }
           }).then(e => {
             let project = e.data;
-            commit('project_add', project)
+            commit('project_list', [project.data])
             resolve(project);
           }).catch(e => reject(e))
         }
@@ -105,25 +117,28 @@ export default new Vuex.Store({
     createProject({ commit }, project) {
       let token = this.state.token;
       return new Promise((resolve, reject) => {
-        axios({
-          url: `${endpoint}/project/new`,
-          data: project,
-          method: 'POST',
-          headers: {
-            'token': token
-          }
-        })
+        axios(
+          {
+            url: `${endpoint}/project/new`,
+            data: project,
+            method: 'POST',
+            headers: {
+              'token': token
+            }
+          })
           .then(resp => {
-            if (resp.data.error != null) {
-              reject(resp.data)
+            if (resp.data.error.status) {
+              reject(resp.data.response)
             } else {
+              commit('project_add', resp.data.data)
+              console.log(resp)
               resolve(resp.data)
             }
           })
           .catch(err => {
             console.log(err)
-            commit('auth_error')
-            reject(err)
+
+            reject(err.response.data)
           })
       });
     },
@@ -139,10 +154,10 @@ export default new Vuex.Store({
           }
         })
           .then(resp => {
-            console.log(resp);
             if (resp.data.error != null) {
               reject(resp.data)
             } else {
+              commit('update_project', resp.data.data);
               resolve(resp.data)
             }
           })
@@ -152,7 +167,27 @@ export default new Vuex.Store({
             reject(err)
           })
       });
-    }
+    },
+    deleteProject({ commit }, { _id }) {
+      let token = this.state.token;
+
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${endpoint}/project/${_id}`,
+          method: 'DELETE',
+          headers: {
+            'token': token
+          }
+        }).then(res => {
+          commit('remove_project', _id);
+
+          resolve(res.data);
+        }).catch(err => {
+          reject(err.response.data);
+        })
+
+      });
+    },
   },
   modules: {
   },

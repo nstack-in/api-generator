@@ -21,12 +21,14 @@
                         ID : {{project._id}}
                     </p>
                     <p>
+                        Description : {{project.description}}
+                    </p>
+                    <p>
                         Created On : {{  project.createdAt == null ? '' :new Date(project.createdAt).toLocaleString()}}
                     </p>
                 </v-card-text>
 
             </v-card>
-
 
             <v-card width="100%" class="mt-4" elevation="0">
                 <v-card-title>
@@ -47,18 +49,16 @@
                                 <v-expansion-panel-header>{{endpoint.name}}</v-expansion-panel-header>
                                 <v-expansion-panel-content>
                                     <v-divider></v-divider>
-                                    <v-row>
-                                        <v-col sm="12">
-                                            Methods :
-                                            <v-chip class="ma-2" outlined label v-for="(method,i) in endpoint.methods"
-                                                :key="i">
-                                                {{ method }}
-                                            </v-chip>
-                                        </v-col>
-                                        <v-col sm="12">
-                                            <v-btn class="primary">Explore</v-btn>
-                                        </v-col>
-                                    </v-row>
+                                    <v-col>
+                                        Methods :
+                                        <v-chip class="ma-2" outlined label v-for="(method,i) in endpoint.methods"
+                                            :key="i">
+                                            {{ method }}
+                                        </v-chip>
+                                    </v-col>
+                                    <v-col>
+                                        <v-btn class="primary">Explore</v-btn>
+                                    </v-col>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                         </v-expansion-panels>
@@ -69,33 +69,46 @@
 
         </v-row>
         <div class="text-center">
-            <v-dialog v-model="dialog" width="500">
+            <div class="text-center ma-2">
+                <v-dialog v-model="dialog" width="500">
 
-                <v-card>
-                    <v-card-title class="primary">
-                        <span class="white--text">Edit Project</span>
-                        <v-spacer></v-spacer>
-                        <v-btn outlined color="white" @click="dialog = false">
-                            <v-icon>mdi-close</v-icon>
+                    <v-card>
+                        <v-card-title class="primary">
+                            <span class="white--text">Edit Project</span>
+                            <v-spacer></v-spacer>
+                            <v-btn outlined color="white" @click="dialog = false">
+                                <v-icon>mdi-close</v-icon>
+                            </v-btn>
+                        </v-card-title>
+                        <v-progress-linear v-if="updateLoading" :size="30" color="secondary" indeterminate>
+                        </v-progress-linear>
+
+                        <v-card-text>
+                            <v-text-field label="Project ID" disabled v-model="projectUpdate._id"></v-text-field>
+                            <v-text-field label="Name" v-model="projectUpdate.name"></v-text-field>
+                            <v-text-field label="Description" v-model="projectUpdate.description">
+                            </v-text-field>
+                        </v-card-text>
+
+                        <v-divider></v-divider>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" outlined @click="handleUpdate">
+                                Update
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+                <v-snackbar v-model="snackbar" top right>
+                    {{ snackbarData.text }}
+                    <template v-slot:action="{ attrs }">
+                        <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+                            Close
                         </v-btn>
-                    </v-card-title>
-
-                    <v-card-text>
-                        <v-text-field label="Name" v-model="projectUpdate.name"></v-text-field>
-                        <v-text-field label="Description" v-model="projectUpdate.description">
-                        </v-text-field>
-                    </v-card-text>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="primary" outlined @click="handleUpdate">
-                            Update
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
+                    </template>
+                </v-snackbar>
+            </div>
         </div>
     </div>
 </template>
@@ -106,6 +119,12 @@
         data() {
             return {
                 dialog: false,
+                timeout: 2000,
+                snackbar: false,
+                snackbarData: {
+                    text: "Updated",
+                    enable: true,
+                },
                 endpoints: [
                     {
                         name: "Books",
@@ -141,9 +160,11 @@
                     createOn: null
                 },
                 projectUpdate: {
+                    _id: null,
                     name: null,
                     description: null,
                 },
+                updateLoading: false,
             }
         },
         methods: {
@@ -151,12 +172,15 @@
 
             },
             handleUpdate() {
+                this.updateLoading = true;
                 let update = this.projectUpdate;
                 let _id = this.$route.params.id;
                 this.$store.dispatch('updateProjectDetail', { _id, update }).then(e => {
+                    this.dialog = false;
+                    this.snackbar = true;
                     this.project = e.data;
-                    console.log(e);
-                    this.projectUpdate = JSON.parse(JSON.stringify(e));
+                    this.projectUpdate = JSON.parse(JSON.stringify(e.data));
+                    this.updateLoading = false;
                 });
             }
         },
