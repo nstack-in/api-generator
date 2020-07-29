@@ -51,13 +51,14 @@
                                     <v-divider></v-divider>
                                     <v-col>
                                         Methods :
-                                        <v-chip class="ma-2" outlined label v-for="(method,i) in endpoint.methods"
-                                            :key="i">
-                                            {{ method }}
+                                        <v-chip class="ma-2" outlined label v-for="(method,key) of endpoint.methods"
+                                            :key="key">
+                                            {{key}}
                                         </v-chip>
                                     </v-col>
                                     <v-col>
-                                        <v-btn class="primary">Explore</v-btn>
+                                        <v-btn class="primary" :to="'/projects/' + project._id +'/'+endpoint._id">
+                                            Explore</v-btn>
                                     </v-col>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
@@ -118,6 +119,7 @@
         name: "Projects",
         data() {
             return {
+                loadingEndpoint: false,
                 dialog: false,
                 timeout: 2000,
                 snackbar: false,
@@ -125,34 +127,7 @@
                     text: "Updated",
                     enable: true,
                 },
-                endpoints: [
-                    {
-                        name: "Books",
-                        methods: [
-                            'GET', 'POST', 'DELETE'
-                        ]
-                    },
-                    {
-                        name: "User",
-                        methods: [
-                            'GET', 'POST', 'UPDATE'
-                        ]
-
-                    },
-                    {
-                        name: "Purchase",
-                        methods: [
-                            'GET', 'POST', 'PATCH'
-                        ]
-
-                    },
-                    {
-                        name: "Settings",
-                        methods: [
-                            'GET', 'POST'
-                        ]
-                    }
-                ],
+                endpoints: {},
                 project: {
                     name: null,
                     description: null,
@@ -190,6 +165,10 @@
                 this.project = e.data;
                 this.projectUpdate = JSON.parse(JSON.stringify(e.data));
             });
+            this.$store.dispatch('listEndpoint', _id).then(e => {
+                this.endpoints = (e.data);
+            });
+
         },
     }
 </script>

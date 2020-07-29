@@ -52,7 +52,6 @@ export default new Vuex.Store({
           method: 'POST'
         })
           .then(resp => {
-            console.log(resp);
             const token = resp.data.token
             const user = resp.data.user
             localStorage.setItem('token', token)
@@ -69,7 +68,6 @@ export default new Vuex.Store({
     },
     getProjects({ commit }) {
       let token = this.state.token;
-      console.log(this.state.projects)
       return new Promise((resolve, reject) => {
         if (this.state.projects.fetched) {
           resolve(this.state.projects.data);
@@ -142,6 +140,27 @@ export default new Vuex.Store({
           })
       });
     },
+    createEndpoint({ commit }, { _id, data }) {
+      console.log(_id);
+      let token = this.state.token;
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${endpoint}/project/${_id}/new`,
+          method: 'POST',
+          data: data,
+          headers: {
+            'token': token
+          }
+        }).then(e => {
+          console.log({ succ: e })
+          resolve();
+        }).catch(e => {
+          console.log({ ee: e })
+          reject()
+          commit()
+        })
+      });
+    },
     updateProjectDetail({ commit }, { _id, update }) {
       let token = this.state.token;
       return new Promise((resolve, reject) => {
@@ -188,6 +207,26 @@ export default new Vuex.Store({
 
       });
     },
+    listEndpoint({ commit }, _id) {
+      let token = this.state.token;
+      console.log()
+
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `${endpoint}/project/${_id}/list`,
+          method: 'GET',
+          headers: {
+            'token': token
+          }
+        }).then(res => {
+          resolve(res.data);
+        }).catch(err => {
+          reject(err.response.data);
+          commit()
+        })
+
+      });
+    }
   },
   modules: {
   },
