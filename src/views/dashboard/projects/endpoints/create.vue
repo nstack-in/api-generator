@@ -73,7 +73,7 @@
                     .then(e => {
                         this.endpointData = e;
                         this.loading = false;
-                        this.$router.push('/projects');
+                        this.$router.push(`/projects/${_id}`);
                     }).catch(e => {
                         this.loading = false;
                         if (e.error.message == "Token Expired") {

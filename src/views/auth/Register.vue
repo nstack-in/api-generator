@@ -3,21 +3,20 @@
         <v-row justify="center">
             <v-col cols="12" sm="10" md="6" lg=4>
 
-                <v-alert type="error" v-if="error">
-                    Invalid Login Credential
+                <v-alert type="error" v-if="error.status">
+                    {{error.message}}
                 </v-alert>
-
-                <v-alert type="secondary" v-if="successRegister">
-                    Account Crated Successfully, Please Login
-                </v-alert>
-                <v-card class="elevation-12">
-                    <v-toolbar color="primary" dark text>
-                        <v-toolbar-title>Login form</v-toolbar-title>
+                <v-card class="elevation-6">
+                    <v-toolbar color="primary" class="elevation-0" dark text>
+                        <v-toolbar-title>Register form</v-toolbar-title>
                     </v-toolbar>
                     <v-progress-linear v-if="loading" :size="30" color="secondary" indeterminate></v-progress-linear>
                     <v-card-text>
                         <v-form>
-                            <v-text-field label="Login" v-model.trim="email" name="login" prepend-icon="mdi-account"
+                            <v-text-field label="Name" v-model.trim="name" name="login" prepend-icon="mdi-account"
+                                type="text">
+                            </v-text-field>
+                            <v-text-field label="E-Mail" v-model.trim="email" name="login" prepend-icon="mdi-email"
                                 type="text">
                             </v-text-field>
                             <v-text-field id="password" v-model.trim="password" label="Password" name="password"
@@ -33,7 +32,7 @@
 
 
                 <div class="mt-4" >
-                    <v-btn block to="/register"> I am New! Login</v-btn>
+                    <v-btn block to="/login">  Already account Login</v-btn>
                 </div>
             </v-col>
         </v-row>
@@ -45,22 +44,26 @@
         name: "Login",
         data() {
             return {
-                successRegister : true,
-                email: "nitishk73@gmail.cmo",
+                name: "Nitish Kumar",
+                email: "nitishk72@gmail.com",
                 password: "admin",
                 loading: false,
-                error: false,
+                error: {
+                    status:false,
+                    message: null
+                },
             }
         },
         methods: {
             handleLogin: function () {
                 this.loading = true;
+                let name = this.name
                 let email = this.email
                 let password = this.password
-                this.$store.dispatch('login', { email, password })
+                this.$store.dispatch('register', { name, email, password })
                     .then(() => {
                         this.loading = false;
-                        this.$router.push('/dashboard');
+                        this.$router.push('/login?register=success');
                     })
                     .catch((err) => {
                         this.loading = false;
@@ -69,11 +72,8 @@
                     })
             },
             handleGithubLogin: function () {
-            },
-            
+
+            }
         },
-        created() {
-                 this.successRegister = this.$route.query['register'] == "success" ? true : false;
-            },
     }
 </script>

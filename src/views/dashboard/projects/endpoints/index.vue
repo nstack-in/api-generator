@@ -17,7 +17,10 @@
                         Endpoint : {{endpoint}}
                     </p>
                     <p>
-                        App ID : {{id}}
+                        Name : {{projects.data[id]['name']}}
+                    </p>
+                    <p>
+                        Description : {{projects.data[id]['description']}}
                     </p>
                     <p>
                         Endpoint ID : {{eid}}
@@ -75,7 +78,9 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     export default {
+        computed: mapState(['projects']),
         data() {
             return {
                 dialog: false,
@@ -166,10 +171,8 @@
             }
         },
         created() {
-
             let _id = this.$route.params.id;
             let _eid = this.$route.params.eid;
-
 
             this.id = _id;
             this.eid = _eid;
