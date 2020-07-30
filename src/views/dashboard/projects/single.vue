@@ -16,7 +16,7 @@
 
                     </v-btn>
                 </v-card-title>
-                <v-progress-linear v-if="loadingEndpoint" color="secondary" :indeterminate="true"></v-progress-linear>
+                <v-progress-linear v-if="loadingProject" color="secondary" :indeterminate="true"></v-progress-linear>
                 <v-card-text class="my-4">
                     <p class="body-1">
                         Name : {{project.name}}
@@ -46,11 +46,11 @@
 
                     </v-btn>
                 </v-card-title>
-                <v-progress-linear v-if="loadingEndpoint" color="secondary" :indeterminate="true"></v-progress-linear>
+                <v-progress-linear v-if="loadingProject" color="secondary" :indeterminate="true"></v-progress-linear>
                 <v-card-text>
                     <v-row justify="center">
                         <v-expansion-panels>
-                            <v-expansion-panel v-for="(endpoint,i) in endpoints" :key="i">
+                            <v-expansion-panel v-for="(endpoint,i) in project.endpoints" :key="i">
                                 <v-expansion-panel-header>{{endpoint.name}}</v-expansion-panel-header>
                                 <v-expansion-panel-content>
                                     <v-divider></v-divider>
@@ -125,8 +125,7 @@
         name: "Projects",
         data() {
             return {
-                loadingEndpoint: true,
-                loadingProject: true,
+                loadingProject: false,
                 dialog: false,
                 timeout: 2000,
                 snackbar: false,
@@ -134,12 +133,13 @@
                     text: "Updated",
                     enable: true,
                 },
-                endpoints: {},
+
                 project: {
                     name: null,
                     description: null,
                     _id: null,
-                    createOn: null
+                    createOn: null,
+                    endpoints: [],
                 },
                 projectUpdate: {
                     _id: null,
@@ -168,15 +168,18 @@
         },
         created: async function () {
             let _id = this.$route.params.id;
-            this.$store.dispatch('getProjectDetail', _id).then(e => {
-                this.loadingProject = false;
-                this.project = e.data;
-                this.projectUpdate = JSON.parse(JSON.stringify(e.data));
-            });
-            this.$store.dispatch('listEndpoint', _id).then(e => {
-                this.loadingEndpoint = false;
-                this.endpoints = (e.data);
-            });
+            if (this.project.name == null) {
+                this.loadingProject = true
+                this.$store.dispatch('getProjectDetail', _id).then(e => {
+                    this.loadingProject = false;
+                    this.project = e.data;
+                    this.projectUpdate = JSON.parse(JSON.stringify(e.data));
+                });
+            }
+            // this.$store.dispatch('listEndpoint', _id).then(e => {
+            //     this.loadingEndpoint = false;
+            //     this.endpoints = (e.data);
+            // });
 
         },
     }

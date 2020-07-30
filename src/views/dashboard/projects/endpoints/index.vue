@@ -166,7 +166,7 @@
                 this.$store.dispatch('deleteEndpoint', { _id, _eid })
                     .then(() => {
                         this.dialog = false;
-                        this.$router.push('/projects');
+                        this.$router.push(`/projects/${_id}`);
                     })
             }
         },
