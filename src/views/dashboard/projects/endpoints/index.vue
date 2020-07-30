@@ -22,7 +22,7 @@
                     </p>
 
                     <p>
-                        Full Endpoint : http://{{id}}.nstack.in/api/{{eid}}
+                        Full Endpoint : http://{{id}}.nstack.in/{{eid}}
                     </p>
 
                     <p>
@@ -40,7 +40,7 @@
         <v-col sm="12">
             <v-card>
                 <v-alert>
-                    GET http://{{id}}.nstack.in/api/{{eid}}
+                    GET http://{{id}}.nstack.in/{{eid}}
                 </v-alert>
             </v-card>
         </v-col>
