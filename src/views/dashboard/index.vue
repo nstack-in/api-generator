@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <SideBar/>
+        <SideBar />
         <v-main class="px-4 py-0 ">
             <v-row>
                 <v-col>
@@ -21,18 +21,20 @@
 <style>
     .slide-leave-active,
     .slide-enter-active {
-      transition: 1s;
+        transition: 1s;
     }
+
     .slide-enter {
-      transform: translate(100%, 0);
+        transform: translate(100%, 0);
     }
+
     .slide-leave-to {
-      transform: translate(-100%, 0);
+        transform: translate(-100%, 0);
     }
-      </style>
-    
+</style>
+
 <script>
-      import SideBar from "@/components/navigation/SideBar";
+    import SideBar from "@/components/navigation/sidebar";
     export default {
         name: "Dashboard",
         components: {
