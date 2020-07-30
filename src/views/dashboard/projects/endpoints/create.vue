@@ -16,7 +16,10 @@
 
                 <v-card-text>
                     <v-col>
-                        <v-text-field label="Name" v-model="endpoint.name" solo></v-text-field>
+                        <v-text-field label="Name" v-model="endpoint.name"></v-text-field>
+                    </v-col>
+                    <v-col>
+                        <v-text-field label="Endpoint Id" v-model="endpoint.endpoint_id"></v-text-field>
                     </v-col>
 
                     <!-- <v-col>
@@ -49,6 +52,7 @@
                 },
                 endpoint: {
                     name: "",
+                    endpoint_id: "",
                     methods: {
                         GET: { 'secure': false, 'enabled': true },
                         GET_ALL: { 'secure': false, 'enabled': true },
@@ -76,7 +80,13 @@
                         this.$router.push(`/projects/${_id}`);
                     }).catch(e => {
                         this.loading = false;
-                        if (e.error.message == "Token Expired") {
+                        if (e.err.code == 11000) {
+                            console.log(e.err.code);
+                            this.error = {
+                                status: true,
+                                message: "Endpoint ID already exits in this project"
+                            }
+                        } else if (e.error.message == "Token Expired") {
                             this.$router.push('/login');
                         } else {
                             this.error = e.error;

@@ -9,11 +9,11 @@ let endpoint = process.env.VUE_APP_ENDPOINT;
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || '',
-    user: { name: "",email:"", _id:""},
+    user: { name: "", email: "", _id: "" },
     projects: { fetched: false, data: {}, }
   },
   mutations: {
-    auth_success(state, {token, user}) {
+    auth_success(state, { token, user }) {
       state.token = token
       state.user = user
     },
@@ -22,6 +22,11 @@ export default new Vuex.Store({
       let data = {};
       projects.forEach(project => {
         data[project._id] = JSON.parse(JSON.stringify(project));
+        let endpoints = {};
+        data[project._id]['endpoints'].forEach(endpoint => {
+          endpoints[endpoint['endpoint_id']] = JSON.parse(JSON.stringify(endpoint));
+        });
+        data[project._id]['endpoints'] = endpoints;
       });
       state.projects = { fetched: true, data: data };
     },
@@ -44,7 +49,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    verifyLogin({ commit }){
+    verifyLogin({ commit }) {
       let token = this.state.token;
 
       return new Promise((resolve, reject) => {
@@ -54,16 +59,16 @@ export default new Vuex.Store({
           headers: {
             'token': token
           }
-        }).then( res=>{
+        }).then(res => {
           let user = res.data.data;
-          commit('auth_success', {token, user})
+          commit('auth_success', { token, user })
           resolve(res.data);
         }).catch(err => {
           localStorage.removeItem('token')
           reject(err)
         });
 
-        if(this == "4") commit();
+        if (this == "4") commit();
       });
     },
     login({ commit }, user) {
@@ -78,7 +83,7 @@ export default new Vuex.Store({
             const user = resp.data.user
             localStorage.setItem('token', token)
             axios.defaults.headers.common['Authorization'] = token
-            commit('auth_success',{ token, user})
+            commit('auth_success', { token, user })
             resolve(resp)
           })
           .catch(err => {
@@ -199,8 +204,7 @@ export default new Vuex.Store({
           console.log({ succ: e })
           resolve();
         }).catch(e => {
-          console.log({ ee: e })
-          reject()
+          reject(e.response.data)
           commit()
         })
       });

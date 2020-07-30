@@ -4,7 +4,7 @@
             <v-card>
                 <v-toolbar color="primary" text elevation="0">
                     <v-toolbar-title class="white--text">
-                        Endpoint Details
+                        Project {{  isData ? projects.data[id]['name'] : '...' }}
                     </v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-btn @click="dialog = true" outlined class="white--text">
@@ -12,21 +12,21 @@
                         <span class="d-none d-sm-flex">Delete</span>
                     </v-btn>
                 </v-toolbar>
-                <v-card-text class="body-1">
+                <v-card-text class="body-1" v-if="isData">
+
                     <p>
-                        Endpoint : {{endpoint}}
+                        Endpoint ID : {{projects.data[id]['endpoints'][eid]['endpoint_id']}}
                     </p>
                     <p>
-                        Name : {{projects.data[id]['name']}}
+                        Project Name : {{projects.data[id]['endpoints'][eid]['name']}}
                     </p>
-                    <p>
-                        Description : {{projects.data[id]['description']}}
-                    </p>
-                    <p>
-                        Endpoint ID : {{eid}}
-                    </p>
+
                     <p>
                         Full Endpoint : {{endpoint}}/api/{{id}}/{{eid}}
+                    </p>
+
+                    <p>
+                        Supported Method : {{Object.keys(projects.data[id]['endpoints'][eid]['methods'])}}
                     </p>
 
                 </v-card-text>
@@ -35,21 +35,13 @@
         </v-col>
         <v-col sm="12">
 
-            <h1 class="font-weight-light">Database</h1>
+            <h1 class="font-weight-light">How to send Request?</h1>
         </v-col>
         <v-col sm="12">
             <v-card>
-                <v-data-table :headers="headers" :items="reportItems" item-key="id">
-                    <template v-slot:item="{ item }">
-                        <tr>
-                            <td>{{item.name}}</td>
-                            <td>{{item.sales}}</td>
-                            <td>{{item.customers}}</td>
-                            <td>{{item.items}}</td>
-                        </tr>
-                    </template>
-
-                </v-data-table>
+                <v-alert>
+                    GET {{endpoint}}/api/{{id}}/{{eid}}
+                </v-alert>
             </v-card>
         </v-col>
 
@@ -80,82 +72,18 @@
 <script>
     import { mapState } from 'vuex';
     export default {
-        computed: mapState(['projects']),
+        computed: {
+            ...mapState(['projects']),
+            isData() {
+                return this.projects && this.projects.data[this.id] != undefined;
+            }
+        },
         data() {
             return {
                 dialog: false,
                 id: null,
                 eid: null,
                 endpoint: null,
-                headers: [
-                    {
-                        text: "Product",
-                        align: "left",
-                        sortable: false,
-                        value: "name"
-                    },
-                    { text: "Sales", value: "sales" },
-                    { text: "Customers", value: "customers" },
-                    { text: "Items", value: "items" },
-                ],
-                reportItems: [
-                    {
-                        id: 1,
-                        name: "N95 Mask",
-                        sales: 2062,
-                        customers: 102,
-                        items: 8029,
-                        available: null
-                    },
-                    {
-                        id: 2,
-                        name: "Safety gloves",
-                        sales: 62,
-                        customers: 12,
-                        items: 70,
-                        available: null
-                    },
-                    {
-                        id: 3,
-                        name: "Widget 2",
-                        sales: 262,
-                        customers: 32,
-                        items: 1020,
-                        available: null
-                    },
-                    {
-                        id: 4,
-                        name: "Widget 4",
-                        sales: 362,
-                        customers: 12,
-                        items: 190,
-                        available: null
-                    },
-                    {
-                        id: 4,
-                        name: "Widget 4",
-                        sales: 362,
-                        customers: 12,
-                        items: 190,
-                        available: null
-                    },
-                    {
-                        id: 19,
-                        name: "Widget ABC",
-                        sales: 62,
-                        customers: 5,
-                        items: 17,
-                        available: null
-                    },
-                    {
-                        id: 12,
-                        name: "Widget 12",
-                        sales: 262,
-                        customers: 22,
-                        items: 199,
-                        available: null
-                    },
-                ]
             }
         },
         methods: {
@@ -176,7 +104,8 @@
 
             this.id = _id;
             this.eid = _eid;
-            this.endpoint = process.env['VUE_APP_ENDPOINT']
+            this.endpoint = process.env['VUE_APP_ENDPOINT'];
+            this.$store.dispatch('getProjects')
         },
     }
 </script>

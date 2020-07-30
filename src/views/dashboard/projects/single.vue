@@ -62,7 +62,8 @@
                                         </v-chip>
                                     </v-col>
                                     <v-col>
-                                        <v-btn class="primary" :to="'/projects/' + project._id +'/'+endpoint._id">
+                                        <v-btn class="primary"
+                                            :to="'/projects/' + project._id +'/'+endpoint.endpoint_id">
                                             Explore
                                         </v-btn>
                                     </v-col>
