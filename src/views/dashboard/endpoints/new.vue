@@ -51,7 +51,7 @@
                             </v-layout>
 
 
-                            <v-btn color="info" @click="add">text</v-btn>
+                            <v-btn color="info" @click="add">Add More Columns</v-btn>
                         </v-container>
                     </v-col>
 
@@ -101,7 +101,7 @@
         },
         methods: {
             add() {
-                this.models.push({
+                this.endpoint.models.push({
                     name: null,
                     type: null,
                     max: null,
