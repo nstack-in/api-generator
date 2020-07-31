@@ -31,12 +31,12 @@ const routes = [
       {
         name: "dashboard.home",
         path: '/dashboard',
-        component: () => import('../views/dashboard/home.vue'),
+        component: () => import('../views/dashboard/home/home.vue'),
       },
       {
         name: "dashboard.profile",
         path: '/profile',
-        component: () => import('../views/dashboard/profile.vue'),
+        component: () => import('../views/dashboard/home/profile.vue'),
       },
       {
         name: "dashboard.projects",
@@ -54,9 +54,9 @@ const routes = [
         component: () => import('../views/dashboard/projects/single.vue'),
       },
       {
-        name: "dashboard.projects.new",
+        name: "dashboard.projects.endpoint.new",
         path: '/projects/:id/new',
-        component: () => import('../views/dashboard/projects/endpoints/create.vue'),
+        component: () => import('../views/dashboard/endpoints/new.vue'),
       },
       {
         name: "dashboard.projects.settings",
@@ -66,17 +66,12 @@ const routes = [
       {
         name: "dashboard.projects.view",
         path: '/projects/:id/:eid',
-        component: () => import('../views/dashboard/projects/endpoints/index.vue'),
-      },
-      {
-        name: "dashboard.database",
-        path: '/database',
-        component: () => import('../views/dashboard/database/index.vue'),
+        component: () => import('../views/dashboard/endpoints/index.vue'),
       },
       {
         name: "dashboard.settings",
         path: '/settings',
-        component: () => import('../views/dashboard/settings.vue'),
+        component: () => import('../views/dashboard/home/settings.vue'),
       }
     ]
   },

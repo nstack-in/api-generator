@@ -31,8 +31,8 @@
                 </v-card>
 
 
-                <div class="mt-4" >
-                    <v-btn block to="/login">  Already account Login</v-btn>
+                <div class="mt-4">
+                    <v-btn block to="/login"> Already account Login</v-btn>
                 </div>
             </v-col>
         </v-row>
@@ -45,11 +45,11 @@
         data() {
             return {
                 name: "Nitish Kumar",
-                email: "nitishk72@gmail.com",
+                email: "nitishk73@gmail.cmo",
                 password: "admin",
                 loading: false,
                 error: {
-                    status:false,
+                    status: false,
                     message: null
                 },
             }
@@ -64,8 +64,11 @@
                     .then(() => {
                         this.loading = false;
                         this.$router.push('/login?register=success');
+                        console.log("sd")
                     })
                     .catch((err) => {
+                        console.log("sdd")
+
                         this.loading = false;
                         if (err)
                             this.error = true

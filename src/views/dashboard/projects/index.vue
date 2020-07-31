@@ -18,7 +18,7 @@
                     </v-row>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn class="primary" to="'projects/new">Upgrade Account</v-btn>
+                        <v-btn class="primary" to="upgrade">Upgrade Account</v-btn>
                     </v-card-actions>
                 </v-card-text>
 

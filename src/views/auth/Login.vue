@@ -7,7 +7,7 @@
                     Invalid Login Credential
                 </v-alert>
 
-                <v-alert type="secondary" v-if="successRegister">
+                <v-alert v-if="successRegister">
                     Account Crated Successfully, Please Login
                 </v-alert>
                 <v-card class="elevation-12">
@@ -32,7 +32,7 @@
                 </v-card>
 
 
-                <div class="mt-4" >
+                <div class="mt-4">
                     <v-btn block to="/register"> I am New! Login</v-btn>
                 </div>
             </v-col>
@@ -45,7 +45,6 @@
         name: "Login",
         data() {
             return {
-                successRegister : true,
                 email: "nitishk73@gmail.cmo",
                 password: "admin",
                 loading: false,
@@ -70,10 +69,13 @@
             },
             handleGithubLogin: function () {
             },
-            
+
         },
-        created() {
-                 this.successRegister = this.$route.query['register'] == "success" ? true : false;
-            },
+
+        computed: {
+            successRegister() {
+                return this.$route.query['register'] == "success";
+            }
+        },
     }
 </script>
