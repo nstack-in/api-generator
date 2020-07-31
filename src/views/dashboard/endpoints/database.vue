@@ -31,8 +31,7 @@
         created() {
             let _id = this.$route.params.id;
             let _eid = this.$route.params.eid;
-
-            let endpoint = `http://${_id}.nstack.in/${_eid}`;
+            let endpoint = `https://fierce-headland-06778.herokuapp.com/v1/api/${_id}/${_eid}`;
             axios({
                 url: endpoint,
                 method: 'GET'
