@@ -18,9 +18,9 @@
                     <v-col>
                         <v-text-field label="Name" v-model="project.name"></v-text-field>
                     </v-col>
-                    <!-- <v-col>
+                    <v-col>
                         <v-text-field label="Description" v-model="project.description"></v-text-field>
-                    </v-col> -->
+                    </v-col>
                     <!-- <v-col cols="12">
                         <v-radio-group v-model="row" row>
                             <v-radio label="Public" value="false"></v-radio>
@@ -62,7 +62,7 @@
                 },
                 project: {
                     name: "",
-                    // description: "",
+                    description: "",
                     secure: false,
                     private: false,
                 }
