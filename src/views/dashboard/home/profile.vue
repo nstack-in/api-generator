@@ -26,7 +26,6 @@
             handleLogout() {
                 localStorage.removeItem('token');
                 this.$router.push('/');
-
             }
         },
     }

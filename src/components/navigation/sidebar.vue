@@ -50,7 +50,6 @@
                 ]
             }
         },
-
         methods: {
             handleToggleMini() {
                 this.toggleMini = !this.toggleMini;
