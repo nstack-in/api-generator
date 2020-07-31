@@ -18,9 +18,9 @@
                     <v-col>
                         <v-text-field label="Name" v-model="endpoint.name"></v-text-field>
                     </v-col>
-                    <v-col>
+                    <!-- <v-col>
                         <v-text-field label="Endpoint Id" v-model="endpoint.endpoint_id"></v-text-field>
-                    </v-col>
+                    </v-col> -->
 
                     <!-- <v-col>
                         <v-select v-model="enabledMethods" :items="methods" attach chips label="Chips" multiple solo>
@@ -52,7 +52,7 @@
                 },
                 endpoint: {
                     name: "",
-                    endpoint_id: "",
+                    // endpoint_id: "",
                     methods: {
                         GET: { 'secure': false, 'enabled': true },
                         GET_ALL: { 'secure': false, 'enabled': true },
