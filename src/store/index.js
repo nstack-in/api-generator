@@ -205,7 +205,8 @@ export default new Vuex.Store({
           resolve();
         }).catch(e => {
           reject(e.response.data)
-          commit()
+          if (this == 90)
+            commit()
         })
       });
     },

@@ -30,7 +30,8 @@
                     </p>
 
                     <p>
-                        Supported Method : {{Object.keys(projects.data[id]['endpoints'][eid]['methods'])}}
+                        Supported Method :
+                        {{ (Object.keys(projects.data[id]['endpoints'][eid]['methods']))}}
                     </p>
 
                 </v-card-text>

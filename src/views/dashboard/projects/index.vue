@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col v-if="projects.length == 3 " lg="6" sm="12" cols="sm" class="pb-2">
+        <v-col v-if="Object.keys(projects).length == 3" lg="6" sm="12" cols="sm" class="pb-2">
             <v-card style="min-height:150px">
                 <v-card-title class="warning white--text">
                     Upgrade to Create More Projects
@@ -52,7 +52,6 @@
             </v-card>
 
         </v-col>
-
 
         <v-col lg="6" sm="12" cols="sm" class="pb-2" v-for="(item, index) in projects" :key="index">
 

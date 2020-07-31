@@ -56,10 +56,13 @@
                                     <v-divider></v-divider>
                                     <v-col>
                                         Methods :
-                                        <v-chip class="ma-2" outlined label v-for="(method,key) of endpoint.methods"
-                                            :key="key">
-                                            {{key}}
-                                        </v-chip>
+                                        <span v-for="(method,key) of endpoint.methods" :key="key">
+
+                                            <v-chip class="ma-2" outlined label v-if="method.enabled">
+                                                {{key}}
+                                            </v-chip>
+                                        </span>
+
                                     </v-col>
                                     <v-col>
                                         <v-btn class="primary"

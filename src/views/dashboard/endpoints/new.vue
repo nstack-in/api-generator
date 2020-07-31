@@ -31,19 +31,27 @@
 
 
                     <v-col v-if="endpoint.structured">
+                        <div class="display-1 flex">
+                            Define Structure
+                        </div>
                         <v-container>
-                            <v-layout v-for="(item, index) in [1,2,3]" :key="index">
+                            <v-layout v-for="(item, index) in endpoint.models" :key="index">
                                 <v-flex sm6 style="padding-right:10px">
-                                    <v-text-field label="Field Name" required autocomplete="disable"></v-text-field>
+                                    <v-text-field v-model="item.name" label="Field Name" required
+                                        autocomplete="disable"></v-text-field>
                                 </v-flex>
                                 <v-flex sm3 style="padding-right:10px">
-                                    <v-select :items="supportedTypes" label="Data Type">
+                                    <v-select v-model="item.type" :items="supportedTypes" label="Data Type">
                                     </v-select>
                                 </v-flex>
                                 <v-flex sm3 style="padding-right:10px">
-                                    <v-text-field label="Max Length" required></v-text-field>
+                                    <v-text-field v-model="item.max" value="16" label="Max Length" required>
+                                    </v-text-field>
                                 </v-flex>
                             </v-layout>
+
+
+                            <v-btn color="info" @click="add">text</v-btn>
                         </v-container>
                     </v-col>
 
@@ -64,7 +72,7 @@
     export default {
         data() {
             return {
-                methods: ['GET', 'GET_ALL', 'POST', 'PUT', 'DELETE'],
+                methods: ['GET', 'GET_ALL', 'POST', 'PATCH', 'DELETE'],
                 enabledMethods: [],
                 supportedTypes: ['Text', 'NUMBER', 'URI', 'EMAIL'],
                 loading: false,
@@ -76,26 +84,51 @@
                 endpoint: {
                     name: "",
                     methods: {
-                        GET: { 'secure': false, 'enabled': true },
-                        GET_ALL: { 'secure': false, 'enabled': true },
-                        PATCH: { 'secure': false, 'enabled': true },
-                        DELETE: { 'secure': false, 'enabled': true },
-                        POST: { 'secure': false, 'enabled': true },
+                        GET: { 'secure': false, 'enabled': false },
+                        GET_ALL: { 'secure': false, 'enabled': false },
+                        PATCH: { 'secure': false, 'enabled': false },
+                        DELETE: { 'secure': false, 'enabled': false },
+                        POST: { 'secure': false, 'enabled': false },
                     },
                     structured: false,
-                    models: []
+                    models: [{
+                        name: null,
+                        type: null,
+                        max: null,
+                    }]
                 }
             }
         },
         methods: {
+            add() {
+                this.models.push({
+                    name: null,
+                    type: null,
+                    max: null,
+                });
+            },
             createProject() {
                 this.loading = true;
+                let models = [];
                 let _id = this.$route.params.id;
                 let data = JSON.parse(JSON.stringify(this.endpoint))
-                if (data.models.length == 0)
-                    delete data['models']
+                data.models.forEach(element => {
+                    if (element.name != null)
+                        models.push(element)
+                });
 
-                this.$store.dispatch('createEndpoint', { _id, data: this.endpoint })
+                data['models'] = models;
+                if (models.length == 0) {
+                    delete data['models']
+                }
+                console.log(models.length);
+                console.log(data);
+
+                this.enabledMethods.forEach(element => {
+                    this.endpoint.methods[element].enabled = true;
+                });
+
+                this.$store.dispatch('createEndpoint', { _id, data })
                     .then(e => {
                         this.endpointData = e;
                         this.loading = false;
