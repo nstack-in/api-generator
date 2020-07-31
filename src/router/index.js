@@ -69,16 +69,16 @@ const routes = [
         component: () => import('../views/dashboard/endpoints/index.vue'),
       },
       {
+        name: "dashboard.projects.endpoint.database",
+        path: '/projects/:id/:eid/db',
+        component: () => import('../views/dashboard/endpoints/database.vue'),
+      },
+      {
         name: "dashboard.settings",
         path: '/settings',
         component: () => import('../views/dashboard/home/settings.vue'),
       }
     ]
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
   },
 ]
 const router = new VueRouter({

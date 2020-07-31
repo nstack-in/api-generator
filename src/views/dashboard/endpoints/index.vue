@@ -7,6 +7,10 @@
                         Project {{  isData ? projects.data[id]['name'] : '...' }}
                     </v-toolbar-title>
                     <v-spacer></v-spacer>
+                    <v-btn :to='eid+"/db"' outlined class="white--text mr-2">
+                        <v-icon>mdi-database</v-icon>
+                        <span class="d-none d-sm-flex">Database</span>
+                    </v-btn>
                     <v-btn @click="dialog = true" outlined class="white--text">
                         <v-icon>mdi-delete</v-icon>
                         <span class="d-none d-sm-flex">Delete</span>

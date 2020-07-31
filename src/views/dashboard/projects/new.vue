@@ -1,5 +1,5 @@
 <template>
-    <v-row justify="center">
+    <v-row>
         <v-col sm="12" md="8" lg="6">
 
             <v-alert type="error" v-if="error.status">
@@ -63,6 +63,7 @@
                 project: {
                     name: "",
                     description: "",
+                    structure: ['structure', 'unstrucute'],
                     secure: false,
                     private: false,
                 }
