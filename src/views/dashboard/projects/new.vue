@@ -16,7 +16,10 @@
 
                 <v-card-text>
                     <v-col>
-                        <v-text-field label="Name" v-model="project.name" solo></v-text-field>
+                        <v-text-field label="Name" v-model="project.name"></v-text-field>
+                    </v-col>
+                    <v-col>
+                        <v-text-field label="Description" v-model="project.description"></v-text-field>
                     </v-col>
                     <!-- <v-col cols="12">
                         <v-radio-group v-model="row" row>
