@@ -13,7 +13,7 @@
                     </router-link>
                 </li>
                 <li class="nav-item active" v-else>
-                    <router-link class="nav-link" style="padding-left:1rem;" to="/dashboard">
+                    <router-link class="nav-link" style="padding-left:1rem;" to="/home">
                         Dashboard
                     </router-link>
                 </li>
