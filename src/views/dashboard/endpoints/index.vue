@@ -23,7 +23,9 @@
                         </p>
 
                         <p>
-                            Full Endpoint : http://{{id}}.nstack.in/{{eid}}
+                            Full Endpoint : https://fierce-headland-06778.herokuapp.com/v1/{{id}}/{{eid}}
+
+                            <!-- http://{{id}}.nstack.in/{{eid}} -->
                         </p>
 
                         <p>
