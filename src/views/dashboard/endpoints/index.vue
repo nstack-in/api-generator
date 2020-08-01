@@ -8,7 +8,7 @@
                         <router-link :to='eid+"/db"' class="btn btn-secondary ml-auto mr-2">
                             <span class="d-none d-sm-flex">Database</span>
                         </router-link>
-                        <button @click="dialog = true" class="btn btn-secondary">
+                        <button @click="handleDelete" class="btn btn-secondary">
                             <span class="d-none d-sm-flex">Delete</span>
                         </button>
                     </div>
@@ -35,12 +35,12 @@
 
                 </div>
 
-                <div class="card my-4">
+                <div class="card my-4" v-if="getEndpoint && getEndpoint['models'].length > 0">
                     <div class="card-header">
                         Structure Details
-                    </div>
-                    <div class="card-body p-0" v-if="getProject !=null">
 
+                    </div>
+                    <div class="card-body p-0">
                         <table class="table table-striped table-bordered m-0">
                             <tr>
                                 <th>Field Name</th>
