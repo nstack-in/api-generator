@@ -16,6 +16,7 @@ export default {
                     'token': token
                 }
             }).then(e => {
+                console.log({ su: e })
                 commit('append_endpoint', { id: _id, data: e.data });
                 resolve();
             }).catch(e => {

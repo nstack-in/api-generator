@@ -29,14 +29,15 @@
                             <input id="password" class="form-control" v-model.trim="password" name="password"
                                 type="password" />
                         </div>
+                        <button class="ml-auto btn-block btn btn-primary" :disabled="loading"
+                            @click="handleLogin">Login</button>
                     </div>
 
-                    <div class="card-footer">
-                        <v-spacer></v-spacer>
-                        <button class="btn btn-primary" :disabled="loading" @click="handleLogin">Login</button>
-                    </div>
                 </div>
 
+                <p class="text-center my-4">
+                    I am new here
+                </p>
                 <div class="mt-4">
                     <router-link class="btn btn-secondary btn-block" to="/register"> I am New! Login</router-link>
                 </div>
@@ -50,7 +51,7 @@
         name: "Login",
         data() {
             return {
-                email: "nitishk73@gmail.cmo",
+                email: "admini@gmail.com",
                 password: "admin",
                 loading: false,
                 error: false,
@@ -64,7 +65,7 @@
                 this.$store.dispatch('login', { email, password })
                     .then(() => {
                         this.loading = false;
-                        this.$router.push('/dashboard');
+                        this.$router.push('/home');
                     })
                     .catch((err) => {
                         this.loading = false;

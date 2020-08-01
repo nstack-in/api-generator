@@ -1,10 +1,13 @@
 <template>
     <div class="container my-4">
+        <progress class="pure-material-progress-linear" v-if="user.id == null" />
+
         <div class="card">
+
             <div primary-title class="card-header">
                 Your Profile
             </div>
-            <div class="card-body mt-4">
+            <div class="card-body mt-2">
                 <p>
                     Name : {{user.name}}
                 </p>

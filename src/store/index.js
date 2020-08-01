@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || '',
-    user: { name: "", email: "", _id: "" },
+    user: { name: null, email: null, _id: null, error: { status: true, } },
     projects: { fetched: false, data: {}, }
   },
   mutations: {

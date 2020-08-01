@@ -1,5 +1,5 @@
 <template>
-    <div class="text-white" style="background-color: #31383c;">
+    <div class="text-white " style="background-color: #31383c;">
         <div class="container py-4">
             <router-link to="/home" class="btn btn-secondary mr-4">Projects</router-link>
             <router-link to="/profile" class="btn btn-secondary mr-4">Profile</router-link>

@@ -37,17 +37,22 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-3" style="padding-right:10px">
+                                <div class="col-sm-2" style="padding-right:10px">
                                     <select class="custom-select" v-model="item.type" placeholder="Select Data Type">
                                         <option :value="item" v-for="(item, index) in supportedTypes" :key="index">
                                             {{ item }}
                                         </option>
                                     </select>
                                 </div>
-                                <div class="sol-sm-3" style="padding-right:10px">
+                                <div class="col-sm-2" style="padding-right:10px">
                                     <div class="mb-3">
-                                        <input class="form-control" v-model="item.max" type="number" />
+                                        <input class="form-control" v-model="item.max" type="number"
+                                            placeholder="Max Length" />
                                     </div>
+                                </div>
+                                <div class="form-check col-sm-2">
+                                    <input type="checkbox" class="form-check-input" v-model="item.required">
+                                    <label class="form-check-label" for="exampleCheck1">Required</label>
                                 </div>
                             </div>
                             <button class="btn btn-secondary" @click="add">Add More Columns</button>
@@ -72,7 +77,7 @@
             return {
                 methods: ['GET', 'GET_ALL', 'POST', 'PATCH', 'DELETE'],
                 enabledMethods: [],
-                supportedTypes: ['TEXT', 'NUMBER', 'URI', 'EMAIL'],
+                supportedTypes: ['STRING', 'NUMBER', 'OBJECT', 'ARRAY'],
                 loading: false,
                 error: {
                     status: false,
@@ -82,17 +87,18 @@
                 endpoint: {
                     name: "",
                     methods: {
-                        GET: { 'secure': false, 'enabled': false },
-                        GET_ALL: { 'secure': false, 'enabled': false },
-                        PATCH: { 'secure': false, 'enabled': false },
-                        DELETE: { 'secure': false, 'enabled': false },
-                        POST: { 'secure': false, 'enabled': false },
+                        GET: { 'secure': false, 'enabled': true },
+                        GET_ALL: { 'secure': false, 'enabled': true },
+                        PATCH: { 'secure': false, 'enabled': true },
+                        DELETE: { 'secure': false, 'enabled': true },
+                        POST: { 'secure': false, 'enabled': true },
                     },
                     structured: false,
                     models: [{
                         name: null,
-                        type: 'TEXT',
-                        max: 16,
+                        type: 'STRING',
+                        max: null,
+                        required: true,
                     }]
                 }
             }
@@ -101,8 +107,9 @@
             add() {
                 this.endpoint.models.push({
                     name: null,
-                    type: 'TEXT',
-                    max: 16,
+                    type: 'STRING',
+                    max: null,
+                    required: true,
                 });
             },
             createProject() {

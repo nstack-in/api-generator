@@ -5,8 +5,18 @@
                 Settings
             </div>
             <div class="card-body">
-                <div class="btn btn-danger">Delete Project</div>
+                <div class="btn btn-danger" @click="deleteAccount">Delete Account</div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        methods: {
+            deleteAccount() {
+                alert('Coming soon');
+            }
+        },
+    }
+</script>

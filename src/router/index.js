@@ -31,52 +31,98 @@ const routes = [
     component: Register,
     meta: {
       secondary: false,
+      auth: false,
     }
   },
   {
     path: '/home',
     name: 'dashboard.home',
     component: () => import('../views/dashboard/home/index.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
   {
     name: "dashboard.profile",
     path: '/profile',
     component: () => import('../views/dashboard/home/profile.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
   {
     name: "dashboard.projects.new",
     path: '/projects/new',
     component: () => import('../views/dashboard/projects/new.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
   {
     name: "dashboard.projects.one",
     path: '/projects/:id',
     component: () => import('../views/dashboard/projects/single.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
   {
     name: "dashboard.projects.endpoint.new",
     path: '/projects/:id/new',
     component: () => import('../views/dashboard/endpoints/new.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
   {
     name: "dashboard.projects.settings",
     path: '/projects/:id/settings',
     component: () => import('../views/dashboard/projects/settings.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
   {
     name: "dashboard.projects.view",
     path: '/projects/:id/:eid',
     component: () => import('../views/dashboard/endpoints/index.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
   {
     name: "dashboard.projects.endpoint.database",
     path: '/projects/:id/:eid/db',
     component: () => import('../views/dashboard/endpoints/database.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
   {
     name: "dashboard.settings",
     path: '/settings',
     component: () => import('../views/dashboard/home/settings.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
+  },
+  {
+    name: "dashboard.dns",
+    path: '/dns',
+    component: () => import('../views/dashboard/dns/home.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
   },
 ]
 const router = new VueRouter({

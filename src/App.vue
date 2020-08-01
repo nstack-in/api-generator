@@ -23,8 +23,9 @@
 
     created() {
       this.$store.dispatch('verifyLogin')
+        .then(er => console.log({ er }))
         .catch(() => {
-          if (this.$route.meta.auth == false)
+          if (this.$route.meta.auth == true)
             this.$router.push('/login?message=Login-Expire');
         })
     },

@@ -119,21 +119,9 @@
             }
         },
         created: async function () {
-            this.$store.dispatch('getProjects')
-            this.$store.dispatch('verifyLogin',)
-                .then(() => {
-                    this.loading = false;
-                })
-                .catch(data => {
-                    this.loading = false;
-                    if (data.message == "Network Error") {
-                        alert('No network')
-                    } else {
-                        this.$router.push('/login?message=Login-Expire');
-                    }
-
-                })
-
+            this.$store.dispatch('getProjects').then(() => {
+                this.loading = false;
+            })
         },
     }
 </script>

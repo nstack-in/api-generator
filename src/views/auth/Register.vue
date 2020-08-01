@@ -30,13 +30,15 @@
                             <input id="password" class="form-control" v-model.trim="password" name="password"
                                 type="password" />
                         </div>
+                        <button class="btn btn-block btn-primary" :disabled="loading"
+                            @click="handleLogin">Register</button>
                     </div>
 
-                    <div class="card-footer">
-                        <v-spacer></v-spacer>
-                        <button class="btn btn-primary" :disabled="loading" @click="handleLogin">Register</button>
-                    </div>
+
                 </div>
+                <p class="text-center my-4">
+                    I am already registered user
+                </p>
 
                 <div class="mt-4">
                     <router-link class="btn btn-secondary btn-block" to="/login">Already Account! Login</router-link>
@@ -52,7 +54,7 @@
         data() {
             return {
                 name: "Nitish Kumar",
-                email: "nitishk73@gmail.cmo",
+                email: "admini@gmail.com",
                 password: "admin",
                 loading: false,
                 error: {

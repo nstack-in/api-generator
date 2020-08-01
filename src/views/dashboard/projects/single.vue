@@ -176,19 +176,11 @@
                 this.project = this.projects.data[_id];
                 this.loadingProject = false;
             }
-            // let _id = this.$route.params.id;
-            // if (this.project.name == null) {
-            //     this.loadingProject = true
-            //     this.$store.dispatch('getProjectDetail', _id).then(e => {
-            //         this.loadingProject = false;
-            //         this.project = e.data;
-            //         this.projectUpdate = JSON.parse(JSON.stringify(e.data));
-            //     });
-            // }
-            // this.$store.dispatch('listEndpoint', _id).then(e => {
-            //     this.loadingEndpoint = false;
-            //     this.endpoints = (e.data);
-            // });
+
+            this.$store.dispatch('listEndpoint', _id).then(e => {
+                this.loadingEndpoint = false;
+                this.endpoints = (e.data);
+            });
 
         },
     }
