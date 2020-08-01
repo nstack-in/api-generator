@@ -1,5 +1,15 @@
 <template>
     <div class="container my-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <router-link to="/projects">Project</router-link>
+            </li>
+            <li class="breadcrumb-item">
+                <router-link :to="'/projects/'+id">{{id}}</router-link>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{eid}}</li>
+        </ol>
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -62,6 +72,29 @@
                 </div>
 
                 <div class="card my-4">
+                    <div class="card-header">
+                        Insert Data
+                    </div>
+                    <div class="card-body">
+                        <p>
+                        To Insert the data you need to send POST request to the endpoint.
+                        
+                        </p>
+                        <p>
+                            You must add content-type application/json in the header
+                        </p>
+                        <p>
+                           Attache the json data in the body and send it to the endpoint.
+                        </p>
+                        <div class="alert alert-secondary">
+                            POST https://fierce-headland-06778.herokuapp.com/v1/{{id}}/{{eid}}
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="card my-4" v-if="false">
                     <div class="card-body p-0">
                         <div class="card-header">
                             Methods Details

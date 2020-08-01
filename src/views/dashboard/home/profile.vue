@@ -1,7 +1,12 @@
 <template>
     <div class="container my-4">
         <progress class="pure-material-progress-linear" v-if="user.id == null" />
-
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <router-link to="/projects">Home</router-link>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
         <div class="card">
 
             <div primary-title class="card-header">

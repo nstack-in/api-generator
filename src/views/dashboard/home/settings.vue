@@ -1,5 +1,11 @@
 <template>
     <div class="container my-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <router-link to="/projects">Home</router-link>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Settings</li>
+        </ol>
         <div class="card">
             <div class="card-header">
                 Settings

@@ -1,5 +1,18 @@
 <template>
     <div class="container my-4">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <router-link to="/projects">Project</router-link>
+                </li>
+                <li class="breadcrumb-item">
+                    <router-link :to="'/projects/'+id">{{id}}</router-link>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Settings</li>
+            </ol>
+        </nav>
+
         <div class="card">
             <div class="card-header">
                 Project Settings
@@ -16,7 +29,7 @@
         name: "ProjectSettings",
         data() {
             return {
-
+                id: null,
             }
         },
         methods: {
@@ -27,6 +40,9 @@
                         this.$router.push('/home');
                     });
             }
+        },
+        created() {
+            this.id = this.$route.params.id;
         },
     }
 </script>

@@ -44,6 +44,15 @@ const routes = [
     },
   },
   {
+    path: '/projects',
+    name: 'dashboard.home',
+    component: () => import('../views/dashboard/home/index.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
+  },
+  {
     name: "dashboard.profile",
     path: '/profile',
     component: () => import('../views/dashboard/home/profile.vue'),
@@ -83,6 +92,15 @@ const routes = [
     name: "dashboard.projects.settings",
     path: '/projects/:id/settings',
     component: () => import('../views/dashboard/projects/settings.vue'),
+    meta: {
+      secondary: true,
+      auth: true,
+    },
+  },
+  {
+    name: "dashboard.projects.edit",
+    path: '/projects/:id/edit',
+    component: () => import('../views/dashboard/projects/edit.vue'),
     meta: {
       secondary: true,
       auth: true,

@@ -2,13 +2,25 @@
     <div>
 
         <div class="container my-4">
+
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <router-link to="/projects">Project</router-link>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{id}}</li>
+                </ol>
+            </nav>
+
+
             <div class="card">
                 <div class="card-header d-flex">
                     <h4>Project Details</h4>
-                    <div class="ml-auto">
-                        <button @click="dialog = true" class="btn btn-secondary white--text">
+                    <div class="ml-auto" v-if="project._id">
+                        <router-link :to="project._id + '/edit'" class="btn btn-secondary white--text">
                             <span class="d-none d-sm-flex">Edit</span>
-                        </button>
+                        </router-link>
                         <router-link class="btn btn-secondary ml-4 white--text" :to="project._id + '/settings'"
                             outlined>
                             <span class="d-none d-sm-flex">Settings</span>
@@ -38,7 +50,7 @@
             <div class="my-4">
                 <div class="card-title d-flex">
                     <h4>Endpoints</h4>
-                    <div class="ml-auto">
+                    <div class="ml-auto" v-if="project._id">
                         <router-link :to="project._id + '/new'" class="btn btn-secondary">
                             <span class="d-none d-sm-flex">
                                 Add Endpoint
@@ -117,9 +129,9 @@
     export default {
         name: "Projects",
         computed: mapState(['projects']),
-
         data() {
             return {
+                id: null,
                 loadingProject: false,
                 dialog: false,
                 timeout: 2000,
@@ -144,25 +156,9 @@
                 updateLoading: false,
             }
         },
-        methods: {
-            handleProjectEdit() {
-
-            },
-            handleUpdate() {
-                this.updateLoading = true;
-                let update = this.projectUpdate;
-                let _id = this.$route.params.id;
-                this.$store.dispatch('updateProjectDetail', { _id, update }).then(e => {
-                    this.dialog = false;
-                    this.snackbar = true;
-                    this.project = e.data;
-                    this.projectUpdate = JSON.parse(JSON.stringify(e.data));
-                    this.updateLoading = false;
-                });
-            }
-        },
         created: async function () {
             let _id = this.$route.params.id;
+            this.id = _id;
             if (!this.projects.fetched) {
                 this.$store.dispatch('getProjects').then(e => {
                     e.forEach(element => {

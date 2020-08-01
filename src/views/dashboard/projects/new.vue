@@ -1,5 +1,15 @@
 <template>
     <div class="container my-4">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <router-link to="/projects">Project</router-link>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">new</li>
+            </ol>
+        </nav>
+
         <div class="row">
             <div class="col-sm-12 col-md-8 col-md-6">
 

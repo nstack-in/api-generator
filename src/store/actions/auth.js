@@ -7,7 +7,6 @@ let endpoint = process.env.VUE_APP_ENDPOINT;
 export default {
     verifyLogin({ commit }) {
         let token = this.state.token;
-
         return new Promise((resolve, reject) => {
             axios({
                 url: `${endpoint}/auth/verify`,

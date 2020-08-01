@@ -23,10 +23,14 @@
 
     created() {
       this.$store.dispatch('verifyLogin')
-        .then(er => console.log({ er }))
+        .then(er => {
+          this.$store.dispatch('getProjects');
+          console.log({ 23: er });
+        })
         .catch(() => {
-          if (this.$route.meta.auth == true)
+          if (this.$route.meta.auth == true) {
             this.$router.push('/login?message=Login-Expire');
+          }
         })
     },
   };

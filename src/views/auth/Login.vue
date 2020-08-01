@@ -7,6 +7,10 @@
                     Invalid Login Credential
                 </div>
 
+                <div class="alert alert-danger" v-if="getMessage">
+                    {{ this.$route.query['message'] }}
+                </div>
+
                 <div class="alert alert-success" v-if="successRegister">
                     Account Crated Successfully, Please Login
                 </div>
@@ -81,6 +85,9 @@
         computed: {
             successRegister() {
                 return this.$route.query['register'] == "success";
+            },
+            getMessage() {
+                return this.$route.query['message'] !=null ;
             }
         },
     }
