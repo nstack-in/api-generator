@@ -22,14 +22,10 @@
     }),
 
     created() {
-      this.$store.dispatch('verifyLogin',)
-        // .then(data => {
-        //     console.log(data);
-        // })
-        .catch(data => {
-          this.$router.push('/login?message=Login-Expire');
-
-          console.log(data);
+      this.$store.dispatch('verifyLogin')
+        .catch(() => {
+          if (this.$route.meta.auth == false)
+            this.$router.push('/login?message=Login-Expire');
         })
     },
   };

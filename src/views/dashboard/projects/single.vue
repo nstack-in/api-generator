@@ -51,23 +51,12 @@
 
             <progress class="pure-material-progress-linear" v-if="loadingProject" />
 
-            <div class="card" v-for="(endpoint,i) in project.endpoints" :key="i">
+            <div class="card mb-3" v-for="(endpoint,i) in project.endpoints" :key="i">
                 <div class="card-header">
                     {{endpoint.name.toUpperCase()}}
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-bordered">
-                        <tr>
-                            <th>Method</th>
-                            <th>Enabled</th>
-                            <th>Secure</th>
-                        </tr>
-                        <tr v-for="(method,key) of endpoint.methods" :key="key">
-                            <td>{{key}} </td>
-                            <td>{{method.enabled}} </td>
-                            <td>{{method.secure}} </td>
-                        </tr>
-                    </table>
+                    Endpoint ID: {{ endpoint.endpoint_id }}
                 </div>
                 <div class="card-footer">
                     <router-link class="btn btn-secondary" :to="'/projects/' + project._id +'/'+endpoint.endpoint_id">
@@ -124,8 +113,11 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     export default {
         name: "Projects",
+        computed: mapState(['projects']),
+
         data() {
             return {
                 loadingProject: false,
@@ -171,14 +163,28 @@
         },
         created: async function () {
             let _id = this.$route.params.id;
-            if (this.project.name == null) {
-                this.loadingProject = true
-                this.$store.dispatch('getProjectDetail', _id).then(e => {
-                    this.loadingProject = false;
-                    this.project = e.data;
-                    this.projectUpdate = JSON.parse(JSON.stringify(e.data));
-                });
+            if (!this.projects.fetched) {
+                this.$store.dispatch('getProjects').then(e => {
+                    e.forEach(element => {
+                        if (element._id == _id) {
+                            this.loadingProject = false;
+                            this.project = element;
+                        }
+                    });
+                })
+            } else {
+                this.project = this.projects.data[_id];
+                this.loadingProject = false;
             }
+            // let _id = this.$route.params.id;
+            // if (this.project.name == null) {
+            //     this.loadingProject = true
+            //     this.$store.dispatch('getProjectDetail', _id).then(e => {
+            //         this.loadingProject = false;
+            //         this.project = e.data;
+            //         this.projectUpdate = JSON.parse(JSON.stringify(e.data));
+            //     });
+            // }
             // this.$store.dispatch('listEndpoint', _id).then(e => {
             //     this.loadingEndpoint = false;
             //     this.endpoints = (e.data);

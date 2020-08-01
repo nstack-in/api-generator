@@ -24,7 +24,7 @@
                 let _id = this.$route.params.id;
                 this.$store.dispatch('deleteProject', { _id })
                     .then(() => {
-                        this.$router.push('/projects');
+                        this.$router.push('/home');
                     });
             }
         },

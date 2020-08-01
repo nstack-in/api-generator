@@ -1,70 +1,69 @@
 <template>
-    <v-row>
-        <v-col sm="12">
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-sm-12">
 
-            <v-alert type="error" v-if="error.status">
-                {{ error.message }}
-            </v-alert>
-            <v-card>
-                <v-toolbar color="primary" text elevation="0">
-                    <v-toolbar-title class="white--text">
+                <div class="alert alert-danger" v-if="error.status">
+                    {{ error.message }}
+                </div>
+                <div class="card">
+                    <div class="card-header">
                         Create New Endpoint
-                    </v-toolbar-title>
-                </v-toolbar>
-                <progress class="pure-material-progress-linear" v-if="loading" />
-                <v-card-text>
-                    <v-col>
-                        <v-text-field label="Name" v-model="endpoint.name"></v-text-field>
-                    </v-col>
+                    </div>
+                    <progress class="pure-material-progress-linear" v-if="loading" />
+                    <div class="card-body">
 
-                    <v-select v-model="enabledMethods" :items="methods" chips label="Allowed Methods" multiple>
-                    </v-select>
-
-
-                    <v-col cols="12">
-                        <v-radio-group v-model="endpoint.structured" row>
-                            <v-radio label="Un-Structured" :value="false"></v-radio>
-                            <v-radio label="Structured" :value="true"></v-radio>
-                        </v-radio-group>
-                    </v-col>
-
-
-                    <v-col v-if="endpoint.structured">
-                        <div class="display-1 flex">
-                            Define Structure
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Endpoint Name</label>
+                            <input id="name" class="form-control" v-model="endpoint.name" name="name" type="text" />
                         </div>
-                        <v-container>
-                            <v-layout v-for="(item, index) in endpoint.models" :key="index">
-                                <v-flex sm6 style="padding-right:10px">
-                                    <v-text-field v-model="item.name" label="Field Name" required
-                                        autocomplete="disable"></v-text-field>
-                                </v-flex>
-                                <v-flex sm3 style="padding-right:10px">
-                                    <v-select v-model="item.type" :items="supportedTypes" label="Data Type">
-                                    </v-select>
-                                </v-flex>
-                                <v-flex sm3 style="padding-right:10px">
-                                    <v-text-field v-model="item.max" value="16" label="Max Length" required>
-                                    </v-text-field>
-                                </v-flex>
-                            </v-layout>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Select Endpoint Data Nature</label>
+                            <select class="custom-select" v-model="endpoint.structured">
+                                <option selected value="false">Un-Structured</option>
+                                <option value="true">Structured</option>
+                            </select>
+                        </div>
 
+                        <div v-if="endpoint.structured">
+                            <h4 class="ml-2">
+                                Define Structure
+                            </h4>
+                            <div class="row" v-for="(item, index) in endpoint.models" :key="index">
+                                <div class="col-sm-6" style="padding-right:10px">
+                                    <div class="mb-3">
+                                        <input class="form-control" v-model="item.name" type="text"
+                                            placeholder="Column Name" />
+                                    </div>
+                                </div>
 
-                            <v-btn color="info" @click="add">Add More Columns</v-btn>
-                        </v-container>
-                    </v-col>
+                                <div class="col-sm-3" style="padding-right:10px">
+                                    <select class="custom-select" v-model="item.type" placeholder="Select Data Type">
+                                        <option :value="item" v-for="(item, index) in supportedTypes" :key="index">
+                                            {{ item }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="sol-sm-3" style="padding-right:10px">
+                                    <div class="mb-3">
+                                        <input class="form-control" v-model="item.max" type="number" />
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" @click="add">Add More Columns</button>
+                        </div>
+                    </div>
 
-                    <v-card-actions>
+                    <div class="card-footer d-flex">
                         <div class="ml-auto">
-                            <v-btn color="secondary" outlined @click="createProject">Create</v-btn>
+                            <button class="btn btn-secondary" @click="createProject">Create</button>
                         </div>
-                    </v-card-actions>
+                    </div>
 
-                </v-card-text>
-
-            </v-card>
-        </v-col>
-    </v-row>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -73,7 +72,7 @@
             return {
                 methods: ['GET', 'GET_ALL', 'POST', 'PATCH', 'DELETE'],
                 enabledMethods: [],
-                supportedTypes: ['Text', 'NUMBER', 'URI', 'EMAIL'],
+                supportedTypes: ['TEXT', 'NUMBER', 'URI', 'EMAIL'],
                 loading: false,
                 error: {
                     status: false,
@@ -92,8 +91,8 @@
                     structured: false,
                     models: [{
                         name: null,
-                        type: null,
-                        max: null,
+                        type: 'TEXT',
+                        max: 16,
                     }]
                 }
             }
@@ -102,8 +101,8 @@
             add() {
                 this.endpoint.models.push({
                     name: null,
-                    type: null,
-                    max: null,
+                    type: 'TEXT',
+                    max: 16,
                 });
             },
             createProject() {
@@ -120,8 +119,6 @@
                 if (models.length == 0) {
                     delete data['models']
                 }
-                console.log(models.length);
-                console.log(data);
 
                 this.enabledMethods.forEach(element => {
                     this.endpoint.methods[element].enabled = true;
@@ -135,7 +132,6 @@
                     }).catch(e => {
                         this.loading = false;
                         if (e.err.code == 11000) {
-                            console.log(e.err.code);
                             this.error = {
                                 status: true,
                                 message: "Endpoint ID already exits in this project"

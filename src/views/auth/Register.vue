@@ -71,10 +71,8 @@
                     .then(() => {
                         this.loading = false;
                         this.$router.push('/login?register=success');
-                        console.log("sd")
                     })
                     .catch((err) => {
-                        console.log("sdd")
 
                         this.loading = false;
                         if (err)

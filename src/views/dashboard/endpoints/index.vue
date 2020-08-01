@@ -34,6 +34,26 @@
                     </div>
 
                 </div>
+
+                <div class="card my-4">
+                    <div class="card-header">
+                        Methods
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th>Method</th>
+                                <th>Enabled</th>
+                                <th>Secure</th>
+                            </tr>
+                            <tr v-for="(method,key) of endpoint.methods" :key="key">
+                                <td>{{key}} </td>
+                                <td>{{method.enabled}} </td>
+                                <td>{{method.secure}} </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
 
         </div>

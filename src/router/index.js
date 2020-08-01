@@ -13,6 +13,7 @@ const routes = [
     component: Home,
     meta: {
       secondary: false,
+      auth: false,
     }
   },
   {
@@ -21,6 +22,7 @@ const routes = [
     component: Login,
     meta: {
       secondary: false,
+      auth: false,
     }
   },
   {
@@ -33,24 +35,13 @@ const routes = [
   },
   {
     path: '/home',
-    name: 'dashboard.index',
-    component: () => import('../views/dashboard/projects/index.vue'),
-    redirect: { name: 'dashboard.home' },
-  },
-  {
-    name: "dashboard.home",
-    path: '/dashboard',
-    component: () => import('../views/dashboard/home/home.vue'),
+    name: 'dashboard.home',
+    component: () => import('../views/dashboard/home/index.vue'),
   },
   {
     name: "dashboard.profile",
     path: '/profile',
     component: () => import('../views/dashboard/home/profile.vue'),
-  },
-  {
-    name: "dashboard.projects",
-    path: '/projects',
-    component: () => import('../views/dashboard/projects/index.vue'),
   },
   {
     name: "dashboard.projects.new",

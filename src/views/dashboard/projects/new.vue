@@ -1,52 +1,55 @@
 <template>
-    <v-row>
-        <v-col sm="12" md="8" lg="6">
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 col-md-6">
 
-            <v-alert type="error" v-if="error.status">
-                {{ error.message }}
-            </v-alert>
+                <div class="alert alert-danger" v-if="error.status">
+                    {{ error.message }}
+                </div>
 
-            <v-card>
-                <v-toolbar color="primary" text elevation="0">
-                    <v-toolbar-title class="white--text">
+                <div class="card">
+                    <div class="card-header">
                         Create New Project
-                    </v-toolbar-title>
-                </v-toolbar>
-                <progress class="pure-material-progress-linear" v-if="loading" />
-                <v-card-text>
-                    <v-col>
-                        <v-text-field label="Name" v-model="project.name"></v-text-field>
-                    </v-col>
-                    <v-col>
-                        <v-text-field label="Description" v-model="project.description"></v-text-field>
-                    </v-col>
-                    <!-- <v-col cols="12">
-                        <v-radio-group v-model="row" row>
-                            <v-radio label="Public" value="false"></v-radio>
-                            <v-radio label="Private" value="true"></v-radio>
-                        </v-radio-group>
-                    </v-col>
-                    <v-col cols="12">
-                        <v-radio-group v-model="row" row>
-                            <v-radio label="Secure" value="false"></v-radio>
-                            <v-radio label="Un-Secure" value="true"></v-radio>
-                        </v-radio-group>
-                    </v-col>
-
-                    <v-col cols="12">
-                        <v-text-field auto-grow rows="4" row-height="30" label="API Key" name="key"
-                            v-model="project.description" filled textarea></v-text-field>
-                    </v-col> -->
-                    <v-card-actions>
-                        <div class="ml-auto">
-                            <v-btn color="secondary" outlined @click="createProject">Create</v-btn>
+                    </div>
+                    <progress class="pure-material-progress-linear" v-if="loading" />
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Project Name</label>
+                            <input id="name" class="form-control" v-model="project.name" type="text" />
                         </div>
-                    </v-card-actions>
-                </v-card-text>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Project Description</label>
+                            <textarea id="description" class="form-control" v-model="project.description"
+                                type="text"></textarea>
+                        </div>
+                        <!-- <v-col cols="12">
+                            <v-radio-group v-model="row" row>
+                                <v-radio label="Public" value="false"></v-radio>
+                                <v-radio label="Private" value="true"></v-radio>
+                            </v-radio-group>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-radio-group v-model="row" row>
+                                <v-radio label="Secure" value="false"></v-radio>
+                                <v-radio label="Un-Secure" value="true"></v-radio>
+                            </v-radio-group>
+                        </v-col>
+    
+                        <v-col cols="12">
+                            <v-text-field auto-grow rows="4" row-height="30" label="API Key" name="key"
+                                v-model="project.description" filled textarea></v-text-field>
+                        </v-col> -->
+                    </div>
+                    <div class="card-footer d-flex">
+                        <div class="ml-auto">
+                            <button class="btn btn-secondary" @click="createProject">Create</button>
+                        </div>
+                    </div>
 
-            </v-card>
-        </v-col>
-    </v-row>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -75,7 +78,8 @@
                     .then(e => {
                         this.projects = e;
                         this.loading = false;
-                        this.$router.push('/projects');
+                        let id = e.data._id;
+                        this.$router.push(`/projects/${id}`);
                     }).catch(e => {
                         this.loading = false;
                         if (e.error.message == "Token Expired") {
