@@ -11,8 +11,7 @@
                         Create New Endpoint
                     </v-toolbar-title>
                 </v-toolbar>
-                <v-progress-linear v-if="loading" :size="30" color="secondary" indeterminate></v-progress-linear>
-
+                <progress class="pure-material-progress-linear" v-if="loading" />
                 <v-card-text>
                     <v-col>
                         <v-text-field label="Name" v-model="endpoint.name"></v-text-field>

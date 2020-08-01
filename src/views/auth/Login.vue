@@ -1,43 +1,48 @@
 <template>
-    <v-container class="fill-height primary" fluid>
-        <v-row justify="center">
-            <v-col cols="12" sm="10" md="6" lg=4>
+    <div class="d-flex justify-content-center ">
+        <div style="max-width:450px;" class="my-4">
+            <div>
 
-                <v-alert type="error" v-if="error">
+                <div class="alert alert-danger" v-if="error">
                     Invalid Login Credential
-                </v-alert>
+                </div>
 
-                <v-alert v-if="successRegister">
+                <div class="alert alert-success" v-if="successRegister">
                     Account Crated Successfully, Please Login
-                </v-alert>
-                <v-card class="elevation-12">
-                    <v-toolbar color="primary" dark text>
-                        <v-toolbar-title>Login form</v-toolbar-title>
-                    </v-toolbar>
-                    <v-progress-linear v-if="loading" :size="30" color="secondary" indeterminate></v-progress-linear>
-                    <v-card-text>
-                        <v-form>
-                            <v-text-field label="Login" v-model.trim="email" name="login" prepend-icon="mdi-account"
-                                type="text">
-                            </v-text-field>
-                            <v-text-field id="password" v-model.trim="password" label="Password" name="password"
-                                prepend-icon="mdi-lock" type="password"></v-text-field>
-                        </v-form>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="primary" :disabled="loading" @click="handleLogin">Login</v-btn>
-                        </v-card-actions>
-                    </v-card-text>
+                </div>
+                <div class="card " style="max-width:450px;">
 
-                </v-card>
+                    <div class="card-header" style="min-width:450px;">
+                        Login form
 
+                    </div>
+                    <progress class="pure-material-progress-linear" v-if="loading" />
+                    <div class="card-body">
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input id="email" class="form-control" v-model.trim="email" name="login" type="text" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Your Password</label>
+
+                            <input id="password" class="form-control" v-model.trim="password" name="password"
+                                type="password" />
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <v-spacer></v-spacer>
+                        <button class="btn btn-primary" :disabled="loading" @click="handleLogin">Login</button>
+                    </div>
+                </div>
 
                 <div class="mt-4">
-                    <v-btn block to="/register"> I am New! Login</v-btn>
+                    <router-link class="btn btn-secondary btn-block" to="/register"> I am New! Login</router-link>
                 </div>
-            </v-col>
-        </v-row>
-    </v-container>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>

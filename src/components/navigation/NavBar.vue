@@ -1,30 +1,34 @@
 <template>
-    <v-app-bar app color="primary" dark>
-        <v-container>
-            <v-app-bar elevation="0" color="primary">
-                <v-btn to="/" text>
-                    <!-- <v-img alt="Vuetify Logo" class="shrink mr-2" contain
-                        src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition"
-                        width="40" /> -->
-                    API ON DEMAND
-                    <!-- <v-img alt="API ON DEMAND" class="shrink mt-1 hidden-sm-and-down" contain min-width="100"
-                        src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100" /> -->
-                </v-btn>
-
-                <v-spacer></v-spacer>
-
-                <v-btn to="/register" text>
-                    <span class="mr-2">Register </span>
-                    <v-icon>mdi-account-circle</v-icon>
-                </v-btn>
-            </v-app-bar>
-        </v-container>
-    </v-app-bar>
+    <nav class="navbar shadow fixed-top navbar-expand-lg navbar-dark bg-dark py-3">
+        <div class="container">
+            <div class="container-md">
+                <router-link class="navbar-brand" to="/">API ON DEMAND</router-link>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-md-auto">
+                    <li class="nav-item active">
+                        <router-link class="nav-link" to="/">Home</router-link>
+                    </li>
+                    <li class="nav-item active border border-dark rounded" v-if="$store.getters.isLoggedIn == false">
+                        <router-link class="nav-link px-4" to="/register">
+                            Register
+                        </router-link>
+                    </li>
+                    <li class="nav-item active border border-dark rounded" v-else>
+                        <router-link class="nav-link px-4" to="/dashboard">
+                            Dashboard
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </template>
 
 
 <script>
     export default {
         name: "NavBar",
+
     };
 </script>

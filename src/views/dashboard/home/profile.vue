@@ -1,10 +1,10 @@
 <template>
-    <v-container>
-        <v-card>
-            <v-card-title primary-title class="primary white--text">
+    <div class="container my-4">
+        <div class="card">
+            <div primary-title class="card-header">
                 Your Profile
-            </v-card-title>
-            <v-card-text class="mt-4">
+            </div>
+            <div class="card-body mt-4">
                 <p>
                     Name : {{user.name}}
                 </p>
@@ -12,10 +12,10 @@
                     Email : {{user.email}}
                 </p>
 
-                <v-btn color="warning" @click="handleLogout">Logout</v-btn>
-            </v-card-text>
-        </v-card>
-    </v-container>
+                <button class="btn btn-danger" @click="handleLogout">Logout</button>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
     import { mapState } from 'vuex';

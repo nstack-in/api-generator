@@ -1,6 +1,13 @@
 <template>
-    <div>
-        <v-btn color="error" @click="deleteProjects">Delete Project</v-btn>
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header">
+                Project Settings
+            </div>
+            <div class="card-body">
+                <div class="btn btn-danger" @click="deleteProjects">Delete Project</div>
+            </div>
+        </div>
     </div>
 </template>
 

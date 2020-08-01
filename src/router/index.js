@@ -11,74 +11,81 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      secondary: false,
+    }
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    meta: {
+      secondary: false,
+    }
   },
   {
     path: '/register',
     name: 'register',
-    component: Register
+    component: Register,
+    meta: {
+      secondary: false,
+    }
   },
   {
     path: '/home',
     name: 'dashboard.index',
-    component: () => import('../views/dashboard/index.vue'),
+    component: () => import('../views/dashboard/projects/index.vue'),
     redirect: { name: 'dashboard.home' },
-    children: [
-      {
-        name: "dashboard.home",
-        path: '/dashboard',
-        component: () => import('../views/dashboard/home/home.vue'),
-      },
-      {
-        name: "dashboard.profile",
-        path: '/profile',
-        component: () => import('../views/dashboard/home/profile.vue'),
-      },
-      {
-        name: "dashboard.projects",
-        path: '/projects',
-        component: () => import('../views/dashboard/projects/index.vue'),
-      },
-      {
-        name: "dashboard.projects.new",
-        path: '/projects/new',
-        component: () => import('../views/dashboard/projects/new.vue'),
-      },
-      {
-        name: "dashboard.projects.one",
-        path: '/projects/:id',
-        component: () => import('../views/dashboard/projects/single.vue'),
-      },
-      {
-        name: "dashboard.projects.endpoint.new",
-        path: '/projects/:id/new',
-        component: () => import('../views/dashboard/endpoints/new.vue'),
-      },
-      {
-        name: "dashboard.projects.settings",
-        path: '/projects/:id/settings',
-        component: () => import('../views/dashboard/projects/settings.vue'),
-      },
-      {
-        name: "dashboard.projects.view",
-        path: '/projects/:id/:eid',
-        component: () => import('../views/dashboard/endpoints/index.vue'),
-      },
-      {
-        name: "dashboard.projects.endpoint.database",
-        path: '/projects/:id/:eid/db',
-        component: () => import('../views/dashboard/endpoints/database.vue'),
-      },
-      {
-        name: "dashboard.settings",
-        path: '/settings',
-        component: () => import('../views/dashboard/home/settings.vue'),
-      }
-    ]
+  },
+  {
+    name: "dashboard.home",
+    path: '/dashboard',
+    component: () => import('../views/dashboard/home/home.vue'),
+  },
+  {
+    name: "dashboard.profile",
+    path: '/profile',
+    component: () => import('../views/dashboard/home/profile.vue'),
+  },
+  {
+    name: "dashboard.projects",
+    path: '/projects',
+    component: () => import('../views/dashboard/projects/index.vue'),
+  },
+  {
+    name: "dashboard.projects.new",
+    path: '/projects/new',
+    component: () => import('../views/dashboard/projects/new.vue'),
+  },
+  {
+    name: "dashboard.projects.one",
+    path: '/projects/:id',
+    component: () => import('../views/dashboard/projects/single.vue'),
+  },
+  {
+    name: "dashboard.projects.endpoint.new",
+    path: '/projects/:id/new',
+    component: () => import('../views/dashboard/endpoints/new.vue'),
+  },
+  {
+    name: "dashboard.projects.settings",
+    path: '/projects/:id/settings',
+    component: () => import('../views/dashboard/projects/settings.vue'),
+  },
+  {
+    name: "dashboard.projects.view",
+    path: '/projects/:id/:eid',
+    component: () => import('../views/dashboard/endpoints/index.vue'),
+  },
+  {
+    name: "dashboard.projects.endpoint.database",
+    path: '/projects/:id/:eid/db',
+    component: () => import('../views/dashboard/endpoints/database.vue'),
+  },
+  {
+    name: "dashboard.settings",
+    path: '/settings',
+    component: () => import('../views/dashboard/home/settings.vue'),
   },
 ]
 const router = new VueRouter({

@@ -1,101 +1,104 @@
 <template>
-    <v-row>
-        <v-col v-if="Object.keys(projects).length == 3" lg="6" sm="12" cols="sm" class="pb-2">
-            <v-card style="min-height:150px">
-                <v-card-title class="warning white--text">
-                    Upgrade to Create More Projects
-                </v-card-title>
-                <v-card-text>
-                    <v-row class="no-gutters">
-                        <div class="col-auto">
-                            <div class="cyan fill-height">&nbsp;</div>
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 pb-2" v-if="Object.keys(projects).length == 3" lg="6" sm="12" cols="sm">
+                <div class="card" style="min-height:150px">
+                    <div class="card-header">
+                        <div style="font-size: 20px;">
+                            Upgrade to Create More Projects
                         </div>
-                        <div class="col pa-3 py-4">
-                            <h3>
-                                We can't offer more for free, please upgrade to get more.
-                            </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row no-gutters">
+                            <div class="col-auto">
+                                <div class="cyan fill-height">&nbsp;</div>
+                            </div>
+                            <div class="col pa-3 py-4">
+                                <div>
+                                    We can't offer more for free, please upgrade to get more.
+                                </div>
+                            </div>
                         </div>
-                    </v-row>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn class="primary" to="upgrade">Upgrade Account</v-btn>
-                    </v-card-actions>
-                </v-card-text>
+                    </div>
+                    <div class="card-footer">
+                        <router-link class="btn btn-warning" to="upgrade">Upgrade Account</router-link>
+                    </div>
 
-            </v-card>
+                </div>
 
-        </v-col>
+            </div>
 
-        <v-col v-else lg="6" sm="12" cols="sm" class="pb-2">
-            <v-card style="min-height:150px">
-
-                <v-card-title class="primary white--text">
-                    Add New Project
-                </v-card-title>
-                <v-card-text>
-                    <v-row class="no-gutters">
-                        <div class="col-auto">
-                            <div class="cyan fill-height">&nbsp;</div>
+            <div class="col-lg-6 col-sm-12 pb-2" v-else>
+                <div class="card" style="min-height:150px">
+                    <div class="card-header">
+                        <div style="font-size: 20px;">
+                            Add New Project
                         </div>
-                        <div class="col pa-3 py-4 black--text">
-                            <h3 class="text-truncate text-uppercase">
-                                Your awesome projects 🚀
-                            </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row no-gutters">
+                            <div class="col-auto">
+                                <div class="cyan fill-height">&nbsp;</div>
+                            </div>
+                            <div class="col pa-3 py-4 black--text">
+                                <h6 class="text-truncate text-uppercase">
+                                    Your awesome projects 🚀
+                                </h6>
+                            </div>
                         </div>
-                    </v-row>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="primary" to="projects/new">Create New Project</v-btn>
-                    </v-card-actions>
-                </v-card-text>
+                    </div>
 
-            </v-card>
+                    <div class="card-footer">
+                        <router-link class="btn btn-primary" to="/projects/new">Create New Projects</router-link>
+                    </div>
 
-        </v-col>
+                </div>
 
-        <v-col lg="6" sm="12" cols="sm" class="pb-2" v-for="(item, index) in projects" :key="index">
+            </div>
 
-            <v-card style="min-height:150px">
-                <v-card-title class="primary white--text">
-                    {{item.name}}
-                    <v-spacer></v-spacer>
-                    <v-menu offset-y>
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="white" text v-bind="attrs" v-on="on">
-                                <v-icon>mdi-dots-vertical</v-icon>
-                            </v-btn>
-                        </template>
-                        <v-list>
-                            <v-list-item>
-                                <v-btn text block>Delete</v-btn>
-                            </v-list-item>
-                            <v-list-item>
-                                <v-btn text block :to="'projects/' + item._id + '/settings'">Settings</v-btn>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
-                </v-card-title>
-                <v-card-text>
-                    <v-row class="no-gutters">
-                        <div class="col-auto">
-                            <div class="cyan fill-height">&nbsp;</div>
+            <div class="col-lg-6 col-sm-12 pb-2" v-for="(item, index) in projects" :key="index">
+
+                <div class="card" style="min-height:150px">
+                    <div class="card-header">
+                        <div class="card-title d-flex mb-0">
+                            <span style="font-size: 20px;">
+
+                                {{item.name.toUpperCase()}}
+                            </span>
+
+                            <router-link class="ml-auto btn btn-secondary" :to="'/projects/'+item._id + '/settings'">
+                                <b-icon-gear></b-icon-gear>
+                            </router-link>
+
                         </div>
-                        <div class="col pa-3 py-4">
-                            {{item.description}}
+                    </div>
+                    <div class="card-body">
+                        <div class="row no-gutters">
+                            <div class="col-auto">
+                                <div class="cyan fill-height">&nbsp;</div>
+                            </div>
+
+                            <div class="col pa-3 py-4">
+                                {{item.description}}
+                            </div>
                         </div>
-                    </v-row>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn outlined color="primary" :to="'projects/'+item._id">Explore</v-btn>
-                    </v-card-actions>
-                </v-card-text>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <router-link class="btn btn-primary" :to="'projects/'+item._id">Explore
+                            </router-link>
 
-            </v-card>
+                        </div>
 
-        </v-col>
+                    </div>
 
-    </v-row>
+                </div>
 
+            </div>
+
+        </div>
+
+    </div>
 </template>
 
 <script>
@@ -111,6 +114,19 @@
             this.$store.dispatch('getProjects').then(e => {
                 this.projects = e;
             });
+
+            this.$store.dispatch('verifyLogin',)
+                // .then(data => {
+                //     console.log(data);
+                // })
+                .catch(data => {
+                    if (data.message == "Network Error") {
+                        alert('No network')
+                    } else {
+                        this.$router.push('/login?message=Login-Expire');
+                    }
+
+                })
 
         },
     }

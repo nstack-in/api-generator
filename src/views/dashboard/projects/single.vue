@@ -1,23 +1,24 @@
 <template>
     <div>
-        <v-row>
-            <v-card width="100%">
-                <v-card-title class="primary white--text">
-                    Project Details
-                    <v-spacer></v-spacer>
-                    <v-btn @click="dialog = true" outlined class="white--text">
-                        <v-icon>mdi-pencil</v-icon>
-                        <span class="d-none d-sm-flex">Edit</span>
-                    </v-btn>
-                    <v-btn class="ml-4 white--text" :to="project._id + '/settings'" outlined>
-                        <v-icon>mdi-settings</v-icon>
 
-                        <span class="d-none d-sm-flex">Settings</span>
+        <div class="container my-4">
+            <div class="card">
+                <div class="card-header d-flex">
+                    <h4>Project Details</h4>
+                    <div class="ml-auto">
+                        <button @click="dialog = true" class="btn btn-secondary white--text">
+                            <span class="d-none d-sm-flex">Edit</span>
+                        </button>
+                        <router-link class="btn btn-secondary ml-4 white--text" :to="project._id + '/settings'"
+                            outlined>
+                            <span class="d-none d-sm-flex">Settings</span>
+                        </router-link>
+                    </div>
+                </div>
 
-                    </v-btn>
-                </v-card-title>
-                <v-progress-linear v-if="loadingProject" color="secondary" :indeterminate="true"></v-progress-linear>
-                <v-card-text class="my-4">
+                <progress class="pure-material-progress-linear" v-if="loadingProject" />
+
+                <div class="card-body">
                     <p class="body-1">
                         Name : {{project.name}}
                     </p>
@@ -30,56 +31,54 @@
                     <p>
                         Created On : {{  project.createdAt == null ? '' :new Date(project.createdAt).toLocaleString()}}
                     </p>
-                </v-card-text>
+                </div>
 
-            </v-card>
+            </div>
 
-            <v-card width=" 100%" class="mt-4" elevation="0">
-                <v-card-title>
-                    Endpoints
-                    <v-spacer></v-spacer>
-                    <v-btn :to="project._id + '/new'" outlined>
-                        <v-icon>mdi-plus</v-icon>
-                        <span class="d-none d-sm-flex">
-                            Add Endpoint
-                        </span>
+            <div class="my-4">
+                <div class="card-title d-flex">
+                    <h4>Endpoints</h4>
+                    <div class="ml-auto">
+                        <router-link :to="project._id + '/new'" class="btn btn-secondary">
+                            <span class="d-none d-sm-flex">
+                                Add Endpoint
+                            </span>
 
-                    </v-btn>
-                </v-card-title>
-                <v-progress-linear v-if="loadingProject" color="secondary" :indeterminate="true"></v-progress-linear>
-                <v-card-text>
-                    <v-row justify="center">
-                        <v-expansion-panels>
-                            <v-expansion-panel v-for="(endpoint,i) in project.endpoints" :key="i">
-                                <v-expansion-panel-header>{{endpoint.name}}</v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <v-divider></v-divider>
-                                    <v-col>
-                                        Methods :
-                                        <span v-for="(method,key) of endpoint.methods" :key="key">
+                        </router-link>
+                    </div>
+                </div>
+            </div>
 
-                                            <v-chip class="ma-2" outlined label v-if="method.enabled">
-                                                {{key}}
-                                            </v-chip>
-                                        </span>
+            <progress class="pure-material-progress-linear" v-if="loadingProject" />
 
-                                    </v-col>
-                                    <v-col>
-                                        <v-btn class="primary"
-                                            :to="'/projects/' + project._id +'/'+endpoint.endpoint_id">
-                                            Explore
-                                        </v-btn>
-                                    </v-col>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
-                        </v-expansion-panels>
-                    </v-row>
-                </v-card-text>
+            <div class="card" v-for="(endpoint,i) in project.endpoints" :key="i">
+                <div class="card-header">
+                    {{endpoint.name.toUpperCase()}}
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>Method</th>
+                            <th>Enabled</th>
+                            <th>Secure</th>
+                        </tr>
+                        <tr v-for="(method,key) of endpoint.methods" :key="key">
+                            <td>{{key}} </td>
+                            <td>{{method.enabled}} </td>
+                            <td>{{method.secure}} </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <router-link class="btn btn-secondary" :to="'/projects/' + project._id +'/'+endpoint.endpoint_id">
+                        Explore
+                    </router-link>
+                </div>
+            </div>
 
-            </v-card>
+        </div>
 
-        </v-row>
-        <div class="text-center">
+        <!-- <div class="text-center">
             <div class="text-center ma-2">
                 <v-dialog v-model="dialog" width="500">
 
@@ -120,7 +119,7 @@
                     </template>
                 </v-snackbar>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

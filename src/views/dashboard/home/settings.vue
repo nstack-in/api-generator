@@ -1,12 +1,12 @@
 <template>
-    <v-container>
-        <v-card>
-            <v-card-title primary-title class="primary white--text">
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header">
                 Settings
-            </v-card-title>
-            <v-card-text class="mt-4">
-                <v-btn color="error">Delete My Account</v-btn>
-            </v-card-text>
-        </v-card>
-        </v-container>
+            </div>
+            <div class="card-body">
+                <div class="btn btn-danger">Delete Project</div>
+            </div>
+        </div>
+    </div>
 </template>

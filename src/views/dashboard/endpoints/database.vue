@@ -1,20 +1,27 @@
 <template>
-    <v-row>
-        <v-progress-linear v-if="loading" :size="30" color="primary" indeterminate></v-progress-linear>
-        <v-col sm="12" md="6" v-for="(data, index) in records" :key="index">
-            <v-card>
-                <v-toolbar color="primary" dark class="elevation-0">
-                    {{data['_id']}}
-                </v-toolbar>
-                <v-card-text>
-                    <p v-for="(item, index) in data" :key="index">
-                        <span v-if="index != '_id'">
-                            {{index}} : {{item}}</span>
-                    </p>
-                </v-card-text>
-            </v-card>
-        </v-col>
-    </v-row>
+    <div class="container my-4">
+        <div class="row">
+            <progress class="pure-material-progress-linear" v-if="loading" />
+
+            <div class="col-sm-12 col-md-6 my-2" v-for="(data, index) in records" :key="index">
+                <div class="card">
+                    <div class="card-header">
+                        {{data['_id']}}
+                    </div>
+                    <table class="table table-striped table-bordered m-0">
+                        <tr>
+                            <th>Column Name</th>
+                            <th>Column Value</th>
+                        </tr>
+                        <tr v-for="(item, index) in data" :key="index">
+                            <td> {{index}} </td>
+                            <td>{{item}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
