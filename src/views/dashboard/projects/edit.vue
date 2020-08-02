@@ -76,6 +76,7 @@
                     description: un && un['description']
                 };
             }
+            this.loading = false;
         },
         methods: {
             handleUpdate() {

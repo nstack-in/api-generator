@@ -33,9 +33,10 @@
                         </p>
 
                         <p>
-                            Full Endpoint : https://fierce-headland-06778.herokuapp.com/v1/{{id}}/{{eid}}
+                            Full Endpoint :
+                            <!-- https://fierce-headland-06778.herokuapp.com/v1/{{id}}/{{eid}} -->
 
-                            <!-- http://{{id}}.nstack.in/{{eid}} -->
+                            http://{{id}}.nstack.in/{{eid}}
                         </p>
 
                         <p>
@@ -77,17 +78,21 @@
                     </div>
                     <div class="card-body">
                         <p>
-                        To Insert the data you need to send POST request to the endpoint.
-                        
+                            To Insert the data you need to send POST request to the endpoint.
+
                         </p>
                         <p>
                             You must add content-type application/json in the header
                         </p>
                         <p>
-                           Attache the json data in the body and send it to the endpoint.
+                            Attache the json data in the body and send it to the endpoint.
                         </p>
                         <div class="alert alert-secondary">
-                            POST https://fierce-headland-06778.herokuapp.com/v1/{{id}}/{{eid}}
+                            POST
+                            <!-- https://fierce-headland-06778.herokuapp.com/v1/{{id}}/{{eid}} -->
+
+                            http://{{id}}.nstack.in/{{eid}}
+
                         </div>
                     </div>
 
