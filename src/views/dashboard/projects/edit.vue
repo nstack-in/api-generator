@@ -20,17 +20,18 @@
                     <div class="card-header">
                         Edit Project
                     </div>
+
                     <div class="card">
 
                         <progress class="pure-material-progress-linear" v-if="loading" />
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Project Name</label>
-                                <input id="name" class="form-control" v-model="project.name" type="text" />
+                                <input id="name" class="form-control" v-model="update.name" type="text" />
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Project Description</label>
-                                <textarea id="description" class="form-control" v-model="project.description"
+                                <textarea id="description" class="form-control" v-model="update.description"
                                     type="text"></textarea>
                             </div>
                         </div>
@@ -39,7 +40,6 @@
                                 <button class="btn btn-secondary" @click="handleUpdate">Update</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -52,24 +52,29 @@
 
     export default {
         computed: mapGetters(['projects']),
-        created() {
-            this.id = this.$route.params.id;
-            let _id = this.$route.params.id;
-            let un = this.projects.data[_id];
-            console.log(un);
-            this.project = {
-                name: un && un['name'],
-                description: un && un['description']
-            };
-        },
         data() {
             return {
                 id: null,
-                loading: false,
+                loading: true,
+                update: {
+                    name: null,
+                    description: null,
+                },
                 error: {
                     status: false,
                     message: "",
                 },
+            }
+        },
+        created() {
+            this.id = this.$route.params.id;
+            let _id = this.id;
+            if (this.projects.data) {
+                let un = this.projects.data[_id];
+                this.update = {
+                    name: un && un['name'],
+                    description: un && un['description']
+                };
             }
         },
         methods: {
@@ -82,5 +87,16 @@
                 });
             }
         },
+        watch: {
+            projects(val) {
+                let _id = this.id;
+                let un = val.data[_id];
+                this.update = {
+                    name: un && un['name'],
+                    description: un && un['description']
+                };
+                this.loading = false;
+            }
+        }
     }
 </script>

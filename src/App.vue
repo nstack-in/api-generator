@@ -23,9 +23,8 @@
 
     created() {
       this.$store.dispatch('verifyLogin')
-        .then(er => {
+        .then(() => {
           this.$store.dispatch('getProjects');
-          console.log({ 23: er });
         })
         .catch(() => {
           if (this.$route.meta.auth == true) {
