@@ -1,6 +1,6 @@
 <template>
     <div class="container my-4">
-        <progress class="pure-material-progress-linear" v-if="user.id == null" />
+        <progress class="pure-material-progress-linear" v-if="user._id == null && user.id == null" />
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <router-link to="/projects">Home</router-link>

@@ -35,10 +35,10 @@ export default {
             })
                 .then(resp => {
                     const token = resp.data.token
-                    const user = resp.data.user
+                    const user = resp.data
                     localStorage.setItem('token', token)
-                    axios.defaults.headers.common['Authorization'] = token
-                    commit('auth_success', { token, user })
+                    axios.defaults.headers.common['Authorization'] = token;
+                    commit('auth_success', { token, user: user.data })
                     resolve(resp)
                 })
                 .catch(err => {
@@ -71,6 +71,7 @@ export default {
         })
     },
     logout({ commit }) {
+        localStorage.removeItem('token')
         commit("logout");
     }
 }
