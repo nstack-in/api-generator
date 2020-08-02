@@ -32,8 +32,9 @@
         computed: mapState(['user']),
         methods: {
             handleLogout() {
-                localStorage.removeItem('token');
-                this.$router.push('/');
+                this.$store.dispatch('logout').then(() => {
+                    this.$router.push('/');
+                });
             }
         },
     }
