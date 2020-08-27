@@ -71,7 +71,7 @@
         >
           <div class="card" style="min-height:150px">
             <div class="card-header">
-              <div class="card-title d-flex mb-0text-uppercase">
+              <div class="card-title d-flex mb-0 text-uppercase">
                 <span style="font-size: 20px; ">
                   {{ item.name }}
                 </span>
