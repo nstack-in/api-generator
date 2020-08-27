@@ -1,103 +1,113 @@
 <template>
-    <div class="container my-4">
+  <div class="container my-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <router-link to="/projects">Project</router-link>
+        </li>
+        <li class="breadcrumb-item">
+          <router-link :to="'/projects/' + id">{{ id }}</router-link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+      </ol>
+    </nav>
 
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <router-link to="/projects">Project</router-link>
-                </li>
-                <li class="breadcrumb-item">
-                    <router-link :to="'/projects/'+id">{{id}}</router-link>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Edit</li>
-            </ol>
-        </nav>
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Edit Project
+          </div>
 
-        <div class="row">
-            <div class="col-sm-12 col-md-8 col-md-6">
-
-                <div class="card">
-                    <div class="card-header">
-                        Edit Project
-                    </div>
-
-                    <div class="card">
-
-                        <progress class="pure-material-progress-linear" v-if="loading" />
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Project Name</label>
-                                <input id="name" class="form-control" v-model="update.name" type="text" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Project Description</label>
-                                <textarea id="description" class="form-control" v-model="update.description"
-                                    type="text"></textarea>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <div class="ml-auto">
-                                <button class="btn btn-secondary" @click="handleUpdate">Update</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div class="card">
+            <progress class="pure-material-progress-linear" v-if="loading" />
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="name" class="form-label">Project Name</label>
+                <input
+                  id="name"
+                  class="form-control"
+                  v-model="update.name"
+                  type="text"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label"
+                  >Project Description</label
+                >
+                <textarea
+                  id="description"
+                  class="form-control"
+                  v-model="update.description"
+                  type="text"
+                ></textarea>
+              </div>
             </div>
+            <div class="card-footer d-flex">
+              <div class="ml-auto">
+                <button class="btn btn-secondary" @click="handleUpdate">
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
-    export default {
-        computed: mapGetters(['projects']),
-        data() {
-            return {
-                id: null,
-                loading: true,
-                update: {
-                    name: null,
-                    description: null,
-                },
-                error: {
-                    status: false,
-                    message: "",
-                },
-            }
-        },
-        created() {
-            this.id = this.$route.params.id;
-            let _id = this.id;
-            if (this.projects.data) {
-                let un = this.projects.data[_id];
-                this.update = {
-                    name: un && un['name'],
-                    description: un && un['description']
-                };
-            }
-            this.loading = false;
-        },
-        methods: {
-            handleUpdate() {
-                let _id = this.$route.params.id;
-                this.loading = true;
-                let update = this.project;
-                this.$store.dispatch('updateProjectDetail', { _id, update }).then(() => {
-                    this.loading = false;
-                });
-            }
-        },
-        watch: {
-            projects(val) {
-                let _id = this.id;
-                let un = val.data[_id];
-                this.update = {
-                    name: un && un['name'],
-                    description: un && un['description']
-                };
-                this.loading = false;
-            }
-        }
+export default {
+  computed: mapGetters(["projects"]),
+  data() {
+    return {
+      id: null,
+      loading: true,
+      update: {
+        name: null,
+        description: null,
+      },
+      error: {
+        status: false,
+        message: "",
+      },
+    };
+  },
+  created() {
+    this.id = this.$route.params.id;
+    let _id = this.id;
+    if (this.projects.data) {
+      let un = this.projects.data[_id];
+      this.update = {
+        name: un && un["name"],
+        description: un && un["description"],
+      };
     }
+    if (this.projects.fetched) this.loading = false;
+  },
+  methods: {
+    handleUpdate() {
+      let _id = this.$route.params.id;
+      this.loading = true;
+      let update = this.update;
+      this.$store.dispatch("updateProjectDetail", { _id, update }).then(() => {
+        this.loading = false;
+      });
+    },
+  },
+  watch: {
+    projects(val) {
+      let _id = this.id;
+      let un = val.data[_id];
+      this.update = {
+        name: un && un["name"],
+        description: un && un["description"],
+      };
+      this.loading = false;
+    },
+  },
+};
 </script>
