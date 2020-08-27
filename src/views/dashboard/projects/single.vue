@@ -68,7 +68,7 @@
         :key="i"
       >
         <div class="card-header text-uppercase">
-          {{ endpoint.name.toUpperCase() }}
+          {{ endpoint.name }}
         </div>
         <div class="card-body">Endpoint ID: {{ endpoint.endpoint_id }}</div>
         <div class="card-footer">
